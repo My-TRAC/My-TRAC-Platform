@@ -1,0 +1,92 @@
+version: '3'
+services:
+    zookeeper:
+        image: confluentinc/cp-zookeeper:4.0.0
+        network_mode: "host"
+        container_name: zookeeper
+        environment:
+            ZOOKEEPER_CLIENT_PORT: 32181
+            ZOOKEEPER_TICK_TIME: 2000
+    kafka:
+        image: confluentinc/cp-kafka:4.0.0
+        network_mode: "host"
+        container_name: kafka
+        environment:
+            KAFKA_ZOOKEEPER_CONNECT: localhost:32181
+            KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:29092
+            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    schema-registry:
+        image: confluentinc/cp-schema-registry:4.0.0
+        network_mode: "host"
+        container_name: schema-registry
+        environment:
+            SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: localhost:32181
+            SCHEMA_REGISTRY_HOST_NAME: localhost
+            SCHEMA_REGISTRY_LISTENERS: http://localhost:8081
+    kafka-connect:
+        image: confluentinc/cp-kafka-connect:latest
+        network_mode: "host"
+        container_name: kafka-connect-avor
+        environment:
+            CONNECT_BOOTSTRAP_SERVERS: localhost:29092
+            CONNECT_REST_PORT: 28083
+            CONNECT_GROUP_ID: "quickstart-avro" 
+            CONNECT_CONFIG_STORAGE_TOPIC: "quickstart-avro-config"
+            CONNECT_OFFSET_STORAGE_TOPIC: "quickstart-avro-offsets"
+            CONNECT_STATUS_STORAGE_TOPIC: "quickstart-avro-status" 
+            CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+            CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+            CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+            CONNECT_KEY_CONVERTER: "io.confluent.connect.avro.AvroConverter"
+            CONNECT_VALUE_CONVERTER: "io.confluent.connect.avro.AvroConverter"
+            CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL: "http://localhost:8081"
+            CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: "http://localhost:8081"
+            CONNECT_INTERNAL_KEY_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
+            CONNECT_INTERNAL_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
+            CONNECT_REST_ADVERTISED_HOST_NAME: "localhost"
+            CONNECT_LOG4J_ROOT_LOGLEVEL: DEBUG
+            CONNECT_LOG4J_LOGGERS: org.reflections=ERROR
+            CONNECT_PLUGIN_PATH: /usr/share/java,/etc/kafka-connect/jars
+        volumes:
+            - /tmp/quickstart/file:/tmp/quickstart
+            - /tmp/quickstart/jars:/etc/kafka-connect/jars
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:5.6.3
+        network_mode: "host"
+        container_name: elasticsearch
+        #        ports: 
+        #            - 29200:29200
+        #        environment:
+        #            CONNECT_REST_PORT: 29200
+        #            - xpack.security.enabled=false
+    
+        environment:
+          - xpack.security.enabled=false
+          - xpack.monitoring.enabled=false
+          - xpack.ml.enabled=false
+          - xpack.graph.enabled=false
+          - xpack.watcher.enabled=false
+          - cluster.name=docker-cluster
+          - bootstrap.memory_lock=true
+          - ES_JAVA_OPTS=-Xms512m -Xmx512m
+          - discovery.zen.minimum_master_nodes=1
+          - discovery.type=single-node
+        ulimits:
+          memlock:
+            soft: -1
+            hard: -1
+          nofile:
+            soft: 65536
+            hard: 65536
+        restart: always
+        ports:
+         - "9200:9200"
+    quickstart-mysql:
+        image: mysql
+        network_mode: "host"
+        container_name: quickstart-mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: confluent
+            MYSQL_USER: confluent
+            MYSQL_PASSWORD: confluent
+            MYSQL_DATABASE: connect_test
