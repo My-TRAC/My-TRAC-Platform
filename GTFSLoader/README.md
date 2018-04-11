@@ -1,5 +1,7 @@
 # Run GTFSLOADER
-` java -jar GTFSLoader-1.0-SNAPSHOT-jar-with-dependencies.jar  -db connect_test -ip $CONNECT_HOST`
+` java -jar GTFSLoader-1.0-SNAPSHOT-jar-with-dependencies.jar -f <path_to_file> -db connect_test -ip $CONNECT_HOST`
+
+it also accepts `-F <path_to_folder>` to handle several gtfs files. 
 
 If everything went well the command 
 ```
