@@ -6,9 +6,10 @@ metadata:
     app: cigo-kafka-svc
 spec:
   ports:
-  - name: "29092"
+  - name: "listener"
     port: 29092
     targetPort: 29092
+  clusterIP: None
   selector:
     app: cigo-kafka
 ---

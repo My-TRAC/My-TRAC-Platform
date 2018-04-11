@@ -40,7 +40,7 @@ spec:
         - name: ZOOKEEPER_TICK_TIME
           value: "2000"
         - name: ZOOKEEPER_SERVERS
-          value: "cigo-zookeeper-0.cigo-zookeeper-svc:2888:3888:participant;cigo-zookeeper-1.cigo-zookeeper-svc:2888:3888:participant;cigo-zookeeper-2.cigo-zookeeper-svc:2888:3888:participant"
+          value: cigo-zookeeper-0.cigo-zookeeper-svc:2888:3888:participant;cigo-zookeeper-1.cigo-zookeeper-svc:2888:3888:participant;cigo-zookeeper-2.cigo-zookeeper-svc:2888:3888:participant
         image: confluentinc/cp-zookeeper:4.0.0
         name: cp-zookeeper
         ports:
