@@ -1,0 +1,44 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cigo-schema-registry-svc
+  labels:
+    app: cigo-schema-registry
+spec:
+  ports:
+  - name: "8081"
+    port: 8081
+    targetPort: 8081
+  selector:
+    app: cigo-schema-registry
+status:
+  loadBalancer: {}
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  app: cigo-schema-registry
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: cigo-schema-registry
+    spec:
+      containers:
+      - env:
+        - name: SCHEMA_REGISTRY_HOST_NAME
+          value: localhost 
+        - name: SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL
+          value: cigo-zookeeper-0.cigo-zookeeper-svc.default.svc.cluster.local:32181,cigo-zookeeper-1.cigo-zookeeper-svc.default.svc.cluster.local:32181,cigo-zookeeper-2.cigo-zookeeper-svc.default.svc.cluster.local:32181
+        - name: SCHEMA_REGISTRY_LISTENERS
+          value: http://localhost:8081
+        image: confluentinc/cp-schema-registry:4.0.0
+        name: schema-registry
+        ports:
+        - containerPort: 8081
+        resources: {}
+      restartPolicy: Always
+status: {}

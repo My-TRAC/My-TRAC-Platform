@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cigo-zookeeper-svc
+  labels:
+    app: cigo-zookeeper-svc
+spec:
+  ports:
+  - name: "client"
+    port: 32181
+    targetPort: 32181
+  - name: "server"
+    port: 2888
+    targetPort: 2888
+  - name: "leader"
+    port: 3888
+    targetPort: 3888
+  clusterIP: None
+  selector:
+    app: cigo-zookeeper
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  labels:
+    app: cigo-zookeeper
+  name: cigo-zookeeper
+spec:
+  serviceName: cigo-zookeeper-svc
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: cigo-zookeeper
+    spec:
+      containers:
+      - env:
+        - name: ZOOKEEPER_CLIENT_PORT
+          value: "32181"
+        - name: ZOOKEEPER_TICK_TIME
+          value: "2000"
+        - name: ZOOKEEPER_SERVERS
+          value: "cigo-zookeeper-0.cigo-zookeeper-svc:2888:3888:participant;cigo-zookeeper-1.cigo-zookeeper-svc:2888:3888:participant;cigo-zookeeper-2.cigo-zookeeper-svc:2888:3888:participant"
+        image: confluentinc/cp-zookeeper:4.0.0
+        name: cp-zookeeper
+        ports:
+        - containerPort: 32181
+        ports:
+        - containerPort: 32888
+        ports:
+        - containerPort: 33888
+        command:
+        - /bin/bash
+        - -c
+        - export ZOOKEEPER_SERVER_ID=$((${HOSTNAME##*-}+1)) && /etc/confluent/docker/run
+      restartPolicy: Always
+status: {}

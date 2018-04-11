@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cigo-kafka-svc
+  labels:
+    app: cigo-kafka-svc
+spec:
+  ports:
+  - name: "29092"
+    port: 29092
+    targetPort: 29092
+  selector:
+    app: cigo-kafka
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  labels:
+    app: cigo-kafka
+  name: cigo-kafka
+spec:
+  serviceName: cigo-kafka-svc
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: cigo-kafka
+    spec:
+      containers:
+      - env:
+        - name: KAFKA_ADVERTISED_LISTENERS
+          value: PLAINTEXT://localhost:29092
+        - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
+          value: "3"
+        - name: KAFKA_ZOOKEEPER_CONNECT
+          value: cigo-zookeeper-0.cigo-zookeeper-svc.default.svc.cluster.local:32181,cigo-zookeeper-1.cigo-zookeeper-svc.default.svc.cluster.local:32181,cigo-zookeeper-2.cigo-zookeeper-svc.default.svc.cluster.local:32181
+        image: confluentinc/cp-kafka:4.0.0
+        name: kafka
+        ports:
+        - containerPort: 29092
+        command:
+        - /bin/bash
+        - -c
+        - export KAFKA_BROKER_ID=$((${HOSTNAME##*-}+1)) && /etc/confluent/docker/run
+        resources: {}
+      restartPolicy: Always
+status: {}
