@@ -1,46 +1,61 @@
-# Deploy CIGO
-## Create the Virtual Environment
-This step is mandatory for OSX users. Theoretically, it is not required for UNIX or Windows users but it has never been tested.
+# CIGO on KUBERNETES
+## Requirements
+Kubernetes is a framework for managing the scaling of containerized applications on clusters. However, you do not need a cluster to deploy and test the CIGO platform. One can use [Minikube](https://kubernetes.io/docs/getting-started-guides/minikube/), which creates a virtual cluster locally to be used with Kubernetes. 
+
+Besides Minikube, you also need to [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/), which is the commmand line tool to control a Kubernetes cluster (or Minikube) locally. 
+
+
+## Deploy the CIGO platform on KUBERNETES
 
 ```
-$> ./createVirtualMachine.sh
-$> eval $(docker-machine env cigo)
-$> export CONNECT_HOST=`docker-machine ip cigo`
+$> ./start.sh
 ```
-
-## Deploy the required dockers
+If everything went,the command `kubectl get pods` should prdouce an output similar to the following
 
 ```
-$> docker-compose up -d
+NAME                                    READY     STATUS    RESTARTS   AGE
+cigo-kafka-0                            1/1       Running   0          16m
+cigo-kafka-1                            1/1       Running   0          16m
+cigo-kafka-2                            1/1       Running   0          16m
+cigo-schema-registry-5464d44bbc-m822j   1/1       Running   0          16m
+cigo-zookeeper-0                        1/1       Running   0          16m
+cigo-zookeeper-1                        1/1       Running   0          16m
+cigo-zookeeper-2                        1/1       Running   0          16m
 ```
-If everything went well the command 
-`$> docker ps`, should retorn something like:
 
-```
-CONTAINER ID        IMAGE                                                 COMMAND                  CREATED             STATUS              PORTS               NAMES
-b188d212ce84        confluentinc/cp-kafka-connect:latest                  "/etc/confluent/dock…"   7 minutes ago       Up 7 minutes                            kafka-connect-avor
-9d5defd049fb        confluentinc/cp-schema-registry:4.0.0                 "/etc/confluent/dock…"   7 minutes ago       Up 7 minutes                            schema-registry
-a6a8d90ecaeb        mysql                                                 "docker-entrypoint.s…"   7 minutes ago       Up 7 minutes                            quickstart-mysql
-66a367140ca2        docker.elastic.co/elasticsearch/elasticsearch:5.6.3   "/bin/bash bin/es-do…"   7 minutes ago       Up 7 minutes                            elasticsearch
-d3f86eeccf0b        confluentinc/cp-zookeeper:4.0.0                       "/etc/confluent/dock…"   7 minutes ago       Up 7 minutes                            zookeeper
-0aa5f92d703a        confluentinc/cp-kafka:4.0.0                           "/etc/confluent/dock…"   7 minutes ago       Up 7 minutes                            kafka
-```
-Do not pay attention to the CONTAINER ID, it is generated randomly for each deploy.
+## Create the required kafka topics
 
-## Start required kafka topics
+To initialize the required kafka topics, run the following command:
 
 ```
 $> ./createTopics.sh
 ```
-
-## Set the JDBC Connector
-
-```
-$> ./setJDBCConnector.sh
-```
-If everything is fine this message should appear: 
+which should produce an output similar to:
 
 ```
-{"name":"quickstart-jdbc-source","config":{"connector.class":"io.confluent.connect.jdbc.JdbcSourceConnector","tasks.max":"1","connection.url":"jdbc:mysql://127.0.0.1:3306/connect_test?user=root&password=confluent","mode":"incrementing","incrementing.column.name":"id","timestamp.column.name":"modified","topic.prefix":"quickstart-jdbc-","poll.interval.ms":"1000","name":"quickstart-jdbc-source"},"tasks":[],"type":null}
+Created topic "quickstart-avro-offsets".
+Created topic "quickstart-avro-config".
+Created topic "quickstart-avro-status".
+Topic:quickstart-avro-config    PartitionCount:3        ReplicationFactor:3     Configs:
+        Topic: quickstart-avro-config   Partition: 0    Leader: 3       Replicas: 3,1,2 Isr: 3,1,2
+        Topic: quickstart-avro-config   Partition: 1    Leader: 1       Replicas: 1,2,3 Isr: 1,2,3
+        Topic: quickstart-avro-config   Partition: 2    Leader: 2       Replicas: 2,3,1 Isr: 2,3,1
+Topic:quickstart-avro-offsets   PartitionCount:3        ReplicationFactor:3     Configs:
+        Topic: quickstart-avro-offsets  Partition: 0    Leader: 3       Replicas: 3,2,1 Isr: 3,2,1
+        Topic: quickstart-avro-offsets  Partition: 1    Leader: 1       Replicas: 1,3,2 Isr: 1,3,2
+        Topic: quickstart-avro-offsets  Partition: 2    Leader: 2       Replicas: 2,1,3 Isr: 2,1,3
+Topic:quickstart-avro-status    PartitionCount:3        ReplicationFactor:3     Configs:
+        Topic: quickstart-avro-status   Partition: 0    Leader: 1       Replicas: 1,2,3 Isr: 1,2,3
+        Topic: quickstart-avro-status   Partition: 1    Leader: 2       Replicas: 2,3,1 Isr: 2,3,1
+        Topic: quickstart-avro-status   Partition: 2    Leader: 3       Replicas: 3,1,2 Isr: 3,1,2
 ```
 
+## Stoping CIGO
+
+To stop CIGO, run the following script:
+
+```
+$> ./stop.sh
+```
+
+which can take some minutes to finish.
