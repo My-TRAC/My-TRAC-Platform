@@ -31,11 +31,11 @@ spec:
       containers:
       - env:
         - name: SCHEMA_REGISTRY_HOST_NAME
-          value: localhost 
+          value: cigo-schema-registry-svc 
         - name: SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL
           value: cigo-zookeeper-svc.default.svc.cluster.local:32181
         - name: SCHEMA_REGISTRY_LISTENERS
-          value: http://localhost:8081
+          value: http://cigo-schema-registry-svc.default.svc.cluster.local:8081
         image: confluentinc/cp-schema-registry:4.0.0
         name: schema-registry
         ports:

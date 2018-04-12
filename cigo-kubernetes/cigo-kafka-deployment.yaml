@@ -29,8 +29,6 @@ spec:
     spec:
       containers:
       - env:
-        - name: KAFKA_ADVERTISED_LISTENERS
-          value: PLAINTEXT://localhost:29092
         - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
           value: "3"
         - name: KAFKA_ZOOKEEPER_CONNECT
@@ -42,7 +40,7 @@ spec:
         command:
         - /bin/bash
         - -c
-        - export KAFKA_BROKER_ID=$((${HOSTNAME##*-}+1)) && /etc/confluent/docker/run
+        - export KAFKA_BROKER_ID=$((${HOSTNAME##*-}+1)) && export KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://cigo-kafka-${HOSTNAME##*-}.cigo-kafka-svc.default.svc.cluster.local:29092 && /etc/confluent/docker/run
         resources: {}
       restartPolicy: Always
 status: {}

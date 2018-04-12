@@ -1,16 +1,13 @@
 #/bin/bash
 
-#Deletes SchemaRegistry 
-kubectl delete deployments/cigo-schema-registry
-kubectl delete services/cigo-schema-registry-svc
+#Deploys Zookeeper
+kubectl delete -f cigo-zookeeper-deployment.yaml 
 
-#Deletes Kafka
-kubectl delete statefulsets/cigo-kafka
-kubectl delete services/cigo-kafka-svc
+#Deploys Kafka
+kubectl delete -f cigo-kafka-deployment.yaml
 
-#Deletes Zookeeper
-kubectl delete statefulsets/cigo-zookeeper
-kubectl delete services/cigo-zookeeper-svc
+##Deploys SchemaRegistry 
+kubectl delete -f cigo-schema-registry-deployment.yaml
 
 kubectl get statefulsets
 kubectl get deployments 
