@@ -25,6 +25,7 @@ services:
             SCHEMA_REGISTRY_LISTENERS: http://localhost:8081
     kafka-connect:
         image: confluentinc/cp-kafka-connect:latest
+        #image: cigo-connect
         network_mode: "host"
         container_name: kafka-connect-avor
         environment:
@@ -47,40 +48,41 @@ services:
             CONNECT_LOG4J_ROOT_LOGLEVEL: DEBUG
             CONNECT_LOG4J_LOGGERS: org.reflections=ERROR
             CONNECT_PLUGIN_PATH: /usr/share/java,/etc/kafka-connect/jars
-        volumes:
-            - /tmp/quickstart/file:/tmp/quickstart
-            - /tmp/quickstart/jars:/etc/kafka-connect/jars
-    elasticsearch:
-        image: docker.elastic.co/elasticsearch/elasticsearch:5.6.3
-        network_mode: "host"
-        container_name: elasticsearch
-        #        ports: 
-        #            - 29200:29200
-        #        environment:
-        #            CONNECT_REST_PORT: 29200
-        #            - xpack.security.enabled=false
-    
-        environment:
-          - xpack.security.enabled=false
-          - xpack.monitoring.enabled=false
-          - xpack.ml.enabled=false
-          - xpack.graph.enabled=false
-          - xpack.watcher.enabled=false
-          - cluster.name=docker-cluster
-          - bootstrap.memory_lock=true
-          - ES_JAVA_OPTS=-Xms512m -Xmx512m
-          - discovery.zen.minimum_master_nodes=1
-          - discovery.type=single-node
-        ulimits:
-          memlock:
-            soft: -1
-            hard: -1
-          nofile:
-            soft: 65536
-            hard: 65536
-        restart: always
-        ports:
-         - "9200:9200"
+            #        volumes:
+            #- /tmp/quickstart/file:/tmp/quickstart
+            #- /tmp/quickstart/jars:/etc/kafka-connect/jars
+            
+              #    elasticsearch:
+              #        image: docker.elastic.co/elasticsearch/elasticsearch:5.6.3
+              #        network_mode: "host"
+              #        container_name: elasticsearch
+              #        #        ports: 
+              #        #            - 29200:29200
+              #        #        environment:
+              #        #            CONNECT_REST_PORT: 29200
+              #        #            - xpack.security.enabled=false
+              #    
+              #        environment:
+              #          - xpack.security.enabled=false
+              #          - xpack.monitoring.enabled=false
+              #          - xpack.ml.enabled=false
+              #          - xpack.graph.enabled=false
+              #          - xpack.watcher.enabled=false
+              #          - cluster.name=docker-cluster
+              #          - bootstrap.memory_lock=true
+              #          - ES_JAVA_OPTS=-Xms512m -Xmx512m
+              #          - discovery.zen.minimum_master_nodes=1
+              #          - discovery.type=single-node
+              #        ulimits:
+              #          memlock:
+              #            soft: -1
+              #            hard: -1
+              #          nofile:
+              #            soft: 65536
+              #            hard: 65536
+              #        restart: always
+              #        ports:
+              #         - "9200:9200"
     quickstart-mysql:
         image: mysql
         network_mode: "host"

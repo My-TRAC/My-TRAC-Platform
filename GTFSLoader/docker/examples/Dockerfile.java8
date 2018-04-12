@@ -1,0 +1,11 @@
+FROM java:8-jre
+
+COPY viral-entities-propagation-0.0.1-SNAPSHOT.war /opt/viral-entities-propagation/viral-entities-propagation-0.0.1-SNAPSHOT.war
+
+EXPOSE 9008
+
+WORKDIR /opt/viral-entities-propagation/
+
+ENV url.mongo.ENV localhost
+
+CMD ["java", "-jar", "viral-entities-propagation-0.0.1-SNAPSHOT.war"]
