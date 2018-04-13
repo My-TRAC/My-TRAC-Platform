@@ -9,7 +9,6 @@ services:
             ZOOKEEPER_TICK_TIME: 2000
     kafka:
         image: confluentinc/cp-kafka:4.0.0
-        #image: cigo-kafka
         network_mode: "host"
         container_name: kafka
         environment:
@@ -51,7 +50,7 @@ services:
             CONNECT_INTERNAL_KEY_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
             CONNECT_INTERNAL_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
             CONNECT_REST_ADVERTISED_HOST_NAME: "localhost"
-            #            CONNECT_LOG4J_ROOT_LOGLEVEL: DEBUG
+            CONNECT_LOG4J_ROOT_LOGLEVEL: DEBUG
             CONNECT_LOG4J_LOGGERS: org.reflections=ERROR
             CONNECT_PLUGIN_PATH: /usr/share/java,/etc/kafka-connect/jars
         depends_on:
@@ -96,7 +95,7 @@ services:
     mysql:
         image: mysql
         network_mode: "host"
-        container_name: quickstart-mysql
+        container_name: mysql
         environment:
             MYSQL_ROOT_PASSWORD: confluent
             MYSQL_USER: confluent

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+eval $(docker-machine env cigo)
 export CONNECT_HOST=`docker-machine ip cigo`
   
 echo ""
