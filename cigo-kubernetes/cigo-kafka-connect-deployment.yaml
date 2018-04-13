@@ -5,13 +5,12 @@ metadata:
   labels:
     app: cigo-kafka-connect-svc
 spec:
+  type: LoadBalancer
   ports:
   - name: "28083"
     port: 28083
-    targetPort: 28083
-  clusterIP: None
   selector:
-    app: cigp-kafka-connect
+    app: cigo-kafka-connect
 status:
   loadBalancer: {}
 ---
@@ -33,7 +32,7 @@ spec:
       containers:
       - env:
         - name: CONNECT_BOOTSTRAP_SERVERS
-          value: cigo-kafka-0.cigo-kafka-svc.default.svc.cluster.local:29092,cigo-kafka-1.cigo-kafka-svc.default.svc.cluster.local:29092,cigo-kafka-2.cigo-kafka-svc.default.svc.cluster.local:29092
+          value: cigo-kafka-0.cigo-kafka-svc.default.svc.cluster.local:29092
         - name: CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR
           value: "1"
         - name: CONNECT_CONFIG_STORAGE_TOPIC

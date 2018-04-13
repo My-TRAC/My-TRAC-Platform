@@ -21,7 +21,7 @@ metadata:
   name: cigo-kafka
 spec:
   serviceName: cigo-kafka-svc
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       labels:
@@ -30,9 +30,9 @@ spec:
       containers:
       - env:
         - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
-          value: "3"
+          value: "1"
         - name: KAFKA_ZOOKEEPER_CONNECT
-          value: cigo-zookeeper-0.cigo-zookeeper-svc.default.svc.cluster.local:32181,cigo-zookeeper-1.cigo-zookeeper-svc.default.svc.cluster.local:32181,cigo-zookeeper-2.cigo-zookeeper-svc.default.svc.cluster.local:32181
+          value: cigo-zookeeper-0.cigo-zookeeper-svc.default.svc.cluster.local:32181
         image: confluentinc/cp-kafka:4.0.0
         name: kafka
         ports:
