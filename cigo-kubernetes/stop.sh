@@ -1,13 +1,17 @@
 #/bin/bash
 
-#Deploys Zookeeper
-kubectl delete -f cigo-zookeeper-deployment.yaml 
+##Deletes Kafka Connect 
+kubectl delete -f cigo-kafka-connect-deployment.yaml
 
-#Deploys Kafka
+
+##Deletes Schema Registry 
+kubectl delete -f cigo-schema-registry-deployment.yaml
+
+#Deletes Kafka
 kubectl delete -f cigo-kafka-deployment.yaml
 
-##Deploys SchemaRegistry 
-kubectl delete -f cigo-schema-registry-deployment.yaml
+#Deletes Zookeeper
+kubectl delete -f cigo-zookeeper-deployment.yaml 
 
 kubectl get statefulsets
 kubectl get deployments 

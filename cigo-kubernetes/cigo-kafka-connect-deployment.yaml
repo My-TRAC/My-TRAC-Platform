@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cigo-kafka-connect-svc
+  labels:
+    app: cigo-kafka-connect-svc
+spec:
+  ports:
+  - name: "28083"
+    port: 28083
+    targetPort: 28083
+  clusterIP: None
+  selector:
+    app: cigp-kafka-connect
+status:
+  loadBalancer: {}
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: cigo-kafka-connect
+  name: cigo-kafka-connect
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: cigo-kafka-connect
+    spec:
+      containers:
+      - env:
+        - name: CONNECT_BOOTSTRAP_SERVERS
+          value: cigo-kafka-0.cigo-kafka-svc.default.svc.cluster.local:29092,cigo-kafka-1.cigo-kafka-svc.default.svc.cluster.local:29092,cigo-kafka-2.cigo-kafka-svc.default.svc.cluster.local:29092
+        - name: CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR
+          value: "1"
+        - name: CONNECT_CONFIG_STORAGE_TOPIC
+          value: cigo-config
+        - name: CONNECT_GROUP_ID
+          value: cigo
+        - name: CONNECT_INTERNAL_KEY_CONVERTER
+          value: org.apache.kafka.connect.json.JsonConverter
+        - name: CONNECT_INTERNAL_VALUE_CONVERTER
+          value: org.apache.kafka.connect.json.JsonConverter
+        - name: CONNECT_KEY_CONVERTER
+          value: io.confluent.connect.avro.AvroConverter
+        - name: CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL
+          value: http://cigo-schema-registry-svc.default.svc.cluster.local:8081
+        - name: CONNECT_LOG4J_LOGGERS
+          value: org.reflections=ERROR
+          #- name: CONNECT_LOG4J_ROOT_LOGLEVEL
+          #- value: INFO
+        - name: CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR
+          value: "1"
+        - name: CONNECT_OFFSET_STORAGE_TOPIC
+          value: cigo-offsets
+        - name: CONNECT_PLUGIN_PATH
+          value: /usr/share/java,/etc/kafka-connect/jars
+        - name: CONNECT_REST_ADVERTISED_HOST_NAME
+          value: localhost
+        - name: CONNECT_REST_PORT
+          value: "28083"
+        - name: CONNECT_STATUS_STORAGE_REPLICATION_FACTOR
+          value: "1"
+        - name: CONNECT_STATUS_STORAGE_TOPIC
+          value: cigo-status
+        - name: CONNECT_VALUE_CONVERTER
+          value: io.confluent.connect.avro.AvroConverter
+        - name: CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL
+          value: http://cigo-schema-registry-svc.default.svc.cluster.local:8081
+        image: sparsitytechnologies/cigo-kafka-connect:latest
+        name: cigo-kafka-connect 
+        ports:
+        - containerPort: 28083
+      restartPolicy: Always
+status: {}

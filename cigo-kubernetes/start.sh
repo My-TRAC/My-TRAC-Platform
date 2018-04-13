@@ -11,7 +11,10 @@ sleep 30
 
 #Deploys SchemaRegistry 
 kubectl apply -f cigo-schema-registry-deployment.yaml
-sleep 10
+sleep 30
+
+kubectl apply -f cigo-kafka-connect-deployment.yaml
+sleep 30
 
 kubectl get statefulsets
 kubectl get deployments 
