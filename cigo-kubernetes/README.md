@@ -25,7 +25,7 @@ cigo-schema-registry-59cfd87f8-9gkmj   1/1       Running   0          1s
 cigo-zookeeper-0                       1/1       Running   0          1s
 ```
 
-## Stoping CIGO
+## Stopping CIGO
 
 To stop CIGO, run the following script:
 
