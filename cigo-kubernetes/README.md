@@ -36,5 +36,5 @@ $> ./stop.sh
 which can take some minutes to finish. Additionally, you can stop Minikube and optionally delete the cluster using the following commands:
 
 ```
-minikube stop`&& minikube delete
+minikube stop && minikube delete
 ```
