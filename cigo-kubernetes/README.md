@@ -1,4 +1,4 @@
-# CIGO on KUBERNETES
+# CIGO Core on KUBERNETES
 ## Requirements
 Kubernetes is a framework for managing the scaling of containerized applications on clusters. However, you do not need a cluster to deploy and test the CIGO platform. One can use [Minikube](https://kubernetes.io/docs/getting-started-guides/minikube/), which creates a virtual cluster locally to be used with Kubernetes. 
 
