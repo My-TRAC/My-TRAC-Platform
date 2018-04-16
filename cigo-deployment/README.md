@@ -23,9 +23,7 @@ Do not pay attention to the CONTAINER ID, it is generated randomly for each depl
 
 
 
-#Stop CIGO!
+# Stop CIGO!
 
-``` 
-$> stop.sh
-```
+`$> stop.sh`
 
