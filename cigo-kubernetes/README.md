@@ -7,7 +7,7 @@ Besides Minikube, you also need to [Kubectl](https://kubernetes.io/docs/tasks/to
 Once Minikube and Kubectl are installed, run the following command to configure Minikube and start the "fake" cluster:
 
 ```
-minikube start
+$> minikube start
 ```
 
 ## Deploy the CIGO platform on KUBERNETES
@@ -37,7 +37,8 @@ Services for the different components can be found at the following urls within 
 To run the example application (the GTFSLoader), run the following command:
 
 ```
-example/start.sh
+>$ cd example
+>$ ./start.sh
 ```
 
 To get the ip of the example app, run the following command:
@@ -49,7 +50,8 @@ minikube service gtfsloader-svc --url
 Finally, you can stop the app with the provided script:
 
 ```
-example/stop.sh
+cd example
+>$ ./stop.sh
 ```
 
 
