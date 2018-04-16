@@ -25,6 +25,13 @@ cigo-schema-registry-59cfd87f8-9gkmj   1/1       Running   0          1s
 cigo-zookeeper-0                       1/1       Running   0          1s
 ```
 
+Services for the different components can be found at the following urls within the cluster (these are urls accessible only within minikube or kubernetes cluster)
+
+* cigo-zookeeper-svc.default.svc.cluster.local:32181
+* cigo-kafka-svc.default.svc.cluster.local:29092
+* cigo-schema-registry-svc.default.svc.cluster.local:8081
+* cigo-kafka-connect-svc.default.svc.cluster.local:28083
+
 ## Running the example app
 
 To run the example application (the GTFSLoader), run the following command:
