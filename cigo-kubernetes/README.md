@@ -25,6 +25,21 @@ cigo-schema-registry-59cfd87f8-9gkmj   1/1       Running   0          1s
 cigo-zookeeper-0                       1/1       Running   0          1s
 ```
 
+## Running the example app
+
+To run the example application (the GTFSLoader), run the following command:
+
+```
+example/start.sh
+```
+
+To get the ip of the example app, run the following command:
+
+```
+minikube service gtfsloader-sdvc --url
+```
+
+
 ## Stopping CIGO
 
 To stop CIGO, run the following script:
