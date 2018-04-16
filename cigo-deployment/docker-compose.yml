@@ -101,3 +101,5 @@ services:
             MYSQL_USER: confluent
             MYSQL_PASSWORD: confluent
             MYSQL_DATABASE: connect_test
+        depends_on:
+            - kafka-connect
