@@ -36,7 +36,7 @@ example/start.sh
 To get the ip of the example app, run the following command:
 
 ```
-minikube service gtfsloader-sdvc --url
+minikube service gtfsloader-svc --url
 ```
 
 Finally, you can stop the app with the provided script:
