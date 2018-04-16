@@ -39,6 +39,12 @@ To get the ip of the example app, run the following command:
 minikube service gtfsloader-sdvc --url
 ```
 
+Finally, you can stop the app with the provided script:
+
+```
+example/stop.sh
+```
+
 
 ## Stopping CIGO
 
