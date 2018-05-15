@@ -1,5 +1,4 @@
-FROM confluentinc/cp-kafka-connect:latest
-
+FROM confluentinc/cp-kafka-connect:4.0.0
 
 
 RUN mkdir -p /etc/kafka-connect/jars
