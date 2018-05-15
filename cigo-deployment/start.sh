@@ -6,8 +6,8 @@ scripts/createVirtualMachine.sh
 echo "Deploying cigo..."
 eval $(docker-machine env cigo)
 docker-compose up -d
-sleep 120                
-scripts/setJDBCConnector.sh
+#sleep 120                
+#scripts/setJDBCConnector.sh
 
 
 
