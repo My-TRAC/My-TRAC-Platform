@@ -1,4 +1,4 @@
-# CIGO on KUBERNETES
+# CIGO Core on KUBERNETES
 ## Requirements
 Kubernetes is a framework for managing the scaling of containerized applications on clusters. However, you do not need a cluster to deploy and test the CIGO platform. One can use [Minikube](https://kubernetes.io/docs/getting-started-guides/minikube/), which creates a virtual cluster locally to be used with Kubernetes. 
 
@@ -7,7 +7,7 @@ Besides Minikube, you also need to [Kubectl](https://kubernetes.io/docs/tasks/to
 Once Minikube and Kubectl are installed, run the following command to configure Minikube and start the "fake" cluster:
 
 ```
-minikube start
+$> minikube start
 ```
 
 ## Deploy the CIGO platform on KUBERNETES
@@ -24,6 +24,42 @@ cigo-kafka-connect-7bdd5d6664-w2ckl    1/1       Running   0          1s
 cigo-schema-registry-59cfd87f8-9gkmj   1/1       Running   0          1s
 cigo-zookeeper-0                       1/1       Running   0          1s
 ```
+
+Services for the different components can be found at the following urls within the cluster (these are urls accessible only within minikube or kubernetes cluster)
+
+* cigo-zookeeper-svc.default.svc.cluster.local:32181
+* cigo-kafka-svc.default.svc.cluster.local:29092
+* cigo-schema-registry-svc.default.svc.cluster.local:8081
+* cigo-kafka-connect-svc.default.svc.cluster.local:28083
+
+## Running the example app
+
+To run the example application (the GTFSLoader), run the following command:
+
+```
+>$ cd example
+>$ ./start.sh
+```
+
+To get the ip of the example app, run the following command:
+
+```
+minikube service gtfsloader-svc --url
+```
+
+so you should see something like this
+
+```
+>$ http://192.168.99.100:31018/
+```
+
+Finally, you can stop the app with the provided script:
+
+```
+cd example
+>$ ./stop.sh
+```
+
 
 ## Stopping CIGO
 

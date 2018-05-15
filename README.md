@@ -1,11 +1,17 @@
 # CIGO
 
 ## Deploy CIGO
-cd cigo-docker-env
+```
+$> ./cigo-deployment/start.sh
+```
 
-Follow README.md 
+## Stop CIGO
+``` 
+$> ./cigo-deployment/stop.sh
+```
+
 
 ## Run GTFSLoader
-cd GTFSLoader
+``` 
+$> ./cigo-deployment/scripts/runGTFS.sh
 
-Follow README.md
