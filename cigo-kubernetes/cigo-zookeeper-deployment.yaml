@@ -42,7 +42,7 @@ spec:
           value: "2000"
         - name: ZOOKEEPER_SERVERS
           value: cigo-zookeeper-0.cigo-zookeeper-svc.default.svc.cluster.local:2888:3888:participant
-        image: confluentinc/cp-zookeeper:4.0.0
+        image: sparsitytechnologies/cigo-zookeeper:latest
         name: cp-zookeeper
         ports:
         - containerPort: 32181

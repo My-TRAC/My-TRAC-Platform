@@ -36,7 +36,7 @@ spec:
           value: cigo-zookeeper-svc.default.svc.cluster.local:32181
         - name: SCHEMA_REGISTRY_LISTENERS
           value: http://cigo-schema-registry-svc.default.svc.cluster.local:8081
-        image: confluentinc/cp-schema-registry:4.0.0
+        image: sparsitytechnologies/cigo-schema-registry:latest
         name: schema-registry
         ports:
         - containerPort: 8081
