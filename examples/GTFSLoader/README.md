@@ -40,7 +40,7 @@ so you should see something like this
 
 Accessing the app url, will show the following screent:
 
-![](app.png?raw=true)
+<kbd><img src="app.png" /></kbd>
 
 ## Stopping the app
 Finally, you can stop the app with the provided script:
