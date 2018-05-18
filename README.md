@@ -7,8 +7,8 @@ This repository contains all the scripts necessary to deploy the CIGO platform u
 The CIGO platform is composed by the following core components:
 * An Apache Kafka cluster (with Zookeeper and Schema Registry)
 * A Kafka-Connect cluster to ease the creation and integration of sink and source components
-* Elastic Search 
-* Kibana
+* Elastic Search (**under development**)
+* Kibana (**under development**)
 
 Additionally, an ontology with Smart City and Transportation concepts is (**currently under development**) is provided in order to standarize the different events that are injected to the platform. 
 
