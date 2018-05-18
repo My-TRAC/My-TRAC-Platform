@@ -1,0 +1,26 @@
+version: "3"
+services:          
+    mysql:
+        image: mysql:5.5.59
+        container_name: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: confluent
+            MYSQL_USER: confluent
+            MYSQL_PASSWORD: confluent
+            MYSQL_DATABASE: connect_test
+            #        depends_on:
+            #- kafka-connect
+    gtfsloader:
+        image: gtfsloadertest:latest
+        container_name: gtfsloader
+        depends_on:
+            - mysql
+        ports:
+            - "4567:4567"
+        environment:
+            KAFKA_CONNECT_HOST: kafka-connect-avor
+            MYSQL_HOST: mysql
+networks:
+    default:
+        external:
+            name: cigo-deployment_default
