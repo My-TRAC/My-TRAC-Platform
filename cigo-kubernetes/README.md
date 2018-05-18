@@ -32,34 +32,6 @@ Services for the different components can be found at the following urls within 
 * cigo-schema-registry-svc.default.svc.cluster.local:8081
 * cigo-kafka-connect-svc.default.svc.cluster.local:28083
 
-## Running the example app
-
-To run the example application (the GTFSLoader), run the following command:
-
-```
->$ cd example
->$ ./start.sh
-```
-
-To get the ip of the example app, run the following command:
-
-```
-minikube service gtfsloader-svc --url
-```
-
-so you should see something like this
-
-```
->$ http://192.168.99.100:31018/
-```
-
-Finally, you can stop the app with the provided script:
-
-```
-cd example
->$ ./stop.sh
-```
-
 
 ## Stopping CIGO
 
