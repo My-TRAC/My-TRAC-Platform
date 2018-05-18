@@ -31,7 +31,7 @@ spec:
       containers:
       - env:
         - name: MYSQL_HOST
-          value: mysql-svc.default.svc.cluster.local 
+          value: mysql-0.mysql-svc.default.svc.cluster.local 
         - name: KAFKA_CONNECT_HOST
           value: cigo-kafka-connect-svc.default.svc.cluster.local
         image: sparsitytechnologies/gtfsloader:latest
