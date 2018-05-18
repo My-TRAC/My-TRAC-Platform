@@ -1,7 +1,8 @@
 #!/bin/bash
 
 
-export URL=$(minikube service cigo-kafka-connect-svc --url)
+export URL="$KAFKA_CONNECT_HOST:28083"
+export MYSQL="$MYSQL_HOST"
   
 
 echo ""

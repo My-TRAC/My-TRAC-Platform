@@ -23,4 +23,4 @@ services:
 networks:
     default:
         external:
-            name: cigo-deployment_default
+            name: cigo-compose_default
