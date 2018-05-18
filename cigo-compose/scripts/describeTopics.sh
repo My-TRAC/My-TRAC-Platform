@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker run --net=host --rm confluentinc/cp-kafka:4.0.0 kafka-topics --describe --zookeeper localhost:32181
+docker run --net=cigo-compose_default --rm sparsitytechnologies/cigo-kafka kafka-topics --describe --zookeeper zookeeper:32181
