@@ -38,9 +38,13 @@ so you should see something like this
 >$ http://192.168.99.100:31018/
 ```
 
-Accessing the app url, will show the following screent:
+Accessing the app url, will show the following screen:
 
 <kbd><img src="app.png" /></kbd>
+
+And after uploading the gtfs file, you should see something similar to the following screen:
+
+<kbd><img src="app2.png" /></kbd>
 
 ## Stopping the app
 Finally, you can stop the app with the provided script:
