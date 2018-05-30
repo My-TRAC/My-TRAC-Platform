@@ -43,4 +43,3 @@ spec:
         - export KAFKA_BROKER_ID=$((${HOSTNAME##*-}+1)) && export KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://cigo-kafka-${HOSTNAME##*-}.cigo-kafka-svc.default.svc.cluster.local:29092 && /etc/confluent/docker/run
         resources: {}
       restartPolicy: Always
-status: {}
