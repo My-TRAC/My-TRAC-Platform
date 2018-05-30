@@ -19,40 +19,40 @@ spec:
   selector:
     app: cigo-zookeeper
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   labels:
     app: cigo-zookeeper
   name: cigo-zookeeper
 spec:
+  selector:
+    matchLabels:
+      app: cigo-zookeeper 
   serviceName: cigo-zookeeper-svc
   replicas: 1
+  podManagementPolicy: Parallel
   template:
     metadata:
       labels:
         app: cigo-zookeeper
     spec:
-      podManagementPolicy: Parallel
       containers:
       - env:
         - name: ZOOKEEPER_CLIENT_PORT
           value: "32181"
+        - name: ZOOKEEPER_SERVER_PORT
+          value: "2888"
+        - name: ZOOKEEPER_LEADER_PORT
+          value: "3888"
         - name: ZOOKEEPER_TICK_TIME
           value: "2000"
-        - name: ZOOKEEPER_SERVERS
-          value: cigo-zookeeper-0.cigo-zookeeper-svc.default.svc.cluster.local:2888:3888:participant
+        - name: ZOOKEEPER_REPLICA_COUNT
+          value: "1"
         image: sparsitytechnologies/cigo-zookeeper:latest
         name: cp-zookeeper
         ports:
         - containerPort: 32181
-        ports:
-        - containerPort: 32888
-        ports:
-        - containerPort: 33888
-        command:
-        - /bin/bash
-        - -c
-        - export ZOOKEEPER_SERVER_ID=$((${HOSTNAME##*-}+1)) && /etc/confluent/docker/run
+        - containerPort: 2888
+        - containerPort: 3888
       restartPolicy: Always
-status: {}
