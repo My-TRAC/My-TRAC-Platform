@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.lang.Thread;
 
 import javax.servlet.*;
 import javax.servlet.http.Part;
@@ -50,8 +51,8 @@ public class DB_Example {
     }
 
 
-    static    Connection connection;
-    public static void main (String[] args) throws IOException, SQLException {
+    static    Connection connection = null;
+    public static void main (String[] args) throws IOException, InterruptedException {
 
 
         File uploadDir = new File("upload");
@@ -80,7 +81,16 @@ public class DB_Example {
               "pw: "+pw+"\n"
        );
 
-        connection = SQLConnection.getConnection(ip,database,user,pw);
+
+       while(connection == null) {
+         try{
+           connection = SQLConnection.getConnection(ip,database,user,pw);
+         } catch(Exception e) {
+           e.printStackTrace();
+           Thread.sleep(1000);
+         }
+       }
+       System.out.println("Connection to MYSQL established");
 
         get("/", (req, res) ->
                 "<form method='post' enctype='multipart/form-data'>" // note the enctype
