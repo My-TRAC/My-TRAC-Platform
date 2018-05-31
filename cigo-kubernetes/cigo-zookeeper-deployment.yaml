@@ -19,7 +19,7 @@ spec:
   selector:
     app: cigo-zookeeper
 ---
-apiVersion: apps/v1
+apiVersion: apps/v1beta2
 kind: StatefulSet
 metadata:
   labels:
