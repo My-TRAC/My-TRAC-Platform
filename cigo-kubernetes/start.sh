@@ -2,11 +2,11 @@
 
 
 #Deploys Zookeeper
-kubectl apply -f cigo-zookeeper-deployment.yaml --validate=false
+kubectl apply -f cigo-zookeeper-deployment.yaml
 sleep 30
 
 #Deploys Kafka
-kubectl apply -f cigo-kafka-deployment.yaml --validate=false
+kubectl apply -f cigo-kafka-deployment.yaml
 sleep 30
 
 #Deploys SchemaRegistry 

@@ -13,13 +13,16 @@ spec:
   selector:
     app: cigo-kafka
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1beta2
 kind: StatefulSet
 metadata:
   labels:
     app: cigo-kafka
   name: cigo-kafka
 spec:
+  selector:
+    matchLabels:
+      app: cigo-kafka 
   serviceName: cigo-kafka-svc
   replicas: 1
   template:
@@ -31,16 +34,15 @@ spec:
       - env:
         - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
           value: "1"
-        - name: KAFKA_ZOOKEEPER_CONNECT
-          value: cigo-zookeeper-0.cigo-zookeeper-svc.default.svc.cluster.local:32181
+        - name: KAFKA_LISTERNER_PORT
+          value: "29092"
+        - name: ZOOKEEPER_REPLICA_COUNT
+          value: "1"
+        - name: ZOOKEEPER_PORT
+          value: "32181"
         image: sparsitytechnologies/cigo-kafka:latest
         name: kafka
         ports:
         - containerPort: 29092
-        command:
-        - /bin/bash
-        - -c
-        - export KAFKA_BROKER_ID=$((${HOSTNAME##*-}+1)) && export KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://cigo-kafka-${HOSTNAME##*-}.cigo-kafka-svc.default.svc.cluster.local:29092 && /etc/confluent/docker/run
         resources: {}
       restartPolicy: Always
-status: {}
