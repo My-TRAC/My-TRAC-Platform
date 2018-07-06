@@ -40,11 +40,11 @@ so you should see something like this
 
 Accessing the app url, will show the following screen:
 
-<kbd><img src="app.png" /></kbd>
+<kbd><img src="images/app.png" /></kbd>
 
 And after uploading the gtfs file, you should see something similar to the following screen:
 
-<kbd><img src="app2.png" /></kbd>
+<kbd><img src="images/app2.png" /></kbd>
 
 ## Stopping the app
 Finally, you can stop the app with the provided script:
