@@ -1,3 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: gtfsloader-ing
+spec:
+  rules:
+  - host: my-trac.eu
+    http:
+      paths:
+      - path: /gtfsloader
+        backend:
+          serviceName: gtfsloader-svc
+          servicePort: 4567
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -5,14 +19,12 @@ metadata:
   labels:
     app: gtfsloader-svc
 spec:
-  type: LoadBalancer 
+  type: NodePort 
   ports:
   - name: "server"
     port: 4567 
   selector:
     app: gtfsloader
-status:
-  loadBalancer: {}
 ---
 apiVersion: apps/v1beta1
 kind: StatefulSet
