@@ -9,15 +9,15 @@ spec:
       paths:
       - path: /gtfsloader
         backend:
-          serviceName: gtfsloader-svc
+          serviceName: gtfsloader
           servicePort: 4567
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: gtfsloader-svc
+  name: gtfsloader
   labels:
-    app: gtfsloader-svc
+    app: gtfsloader
 spec:
   type: NodePort 
   ports:
@@ -33,7 +33,7 @@ metadata:
     app: gtfsloader
   name: gtfsloader
 spec:
-  serviceName: gtfsloader-svc
+  serviceName: gtfsloader
   replicas: 1
   template:
     metadata:
@@ -43,12 +43,11 @@ spec:
       containers:
       - env:
         - name: MYSQL_HOST
-          value: mysql-0.mysql-svc.default.svc.cluster.local 
+          value: mysql-0.mysql.default.svc.cluster.local 
         - name: KAFKA_CONNECT_HOST
-          value: cigo-kafka-connect-svc.default.svc.cluster.local
+          value: cigo-kafka-connect.default.svc.cluster.local
         image: sparsitytechnologies/gtfsloader:latest
         name: gtfsloader 
         ports:
         - containerPort: 4567
       restartPolicy: Always
-status: {}
