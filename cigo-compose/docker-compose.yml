@@ -31,9 +31,7 @@ services:
             - kafka
     kafka-connect:
         image: sparsitytechnologies/cigo-kafka-connect:latest
-        #image: sparsitytechnologies/cigo-kafka-connect:4.0.0-3
-        #network_mode: "host"
-        container_name: kafka-connect-avor
+        container_name: kafka-connect
         ports:
             - "28083:28083"
         environment:
@@ -52,8 +50,8 @@ services:
             CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
             CONNECT_INTERNAL_KEY_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
             CONNECT_INTERNAL_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
-            CONNECT_REST_ADVERTISED_HOST_NAME: "kafka-connect-avor"
-            #            CONNECT_LOG4J_ROOT_LOGLEVEL: DEBUG
+            CONNECT_REST_ADVERTISED_HOST_NAME: "kafka-connect"
+            CONNECT_LOG4J_ROOT_LOGLEVEL: DEBUG,stdout, ERROR, INFO
             CONNECT_LOG4J_LOGGERS: org.reflections=ERROR
             CONNECT_PLUGIN_PATH: /usr/share/java,/etc/kafka-connect/jars
         depends_on:
@@ -61,28 +59,40 @@ services:
             - kafka
             - schema-registry
             
-              #    elasticsearch:
-              #        image: docker.elastic.co/elasticsearch/elasticsearch:5.6.3
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:5.6.3
               #        network_mode: "host"
-              #        container_name: elasticsearch
-              #        environment:
-              #          - xpack.security.enabled=false
-              #          - xpack.monitoring.enabled=false
-              #          - xpack.ml.enabled=false
-              #          - xpack.graph.enabled=false
-              #          - xpack.watcher.enabled=false
-              #          - cluster.name=docker-cluster
-              #          - bootstrap.memory_lock=true
-              #          - ES_JAVA_OPTS=-Xms512m -Xmx512m
-              #          - discovery.zen.minimum_master_nodes=1
-              #          - discovery.type=single-node
-              #        ulimits:
-              #          memlock:
-              #            soft: -1
-              #            hard: -1
-              #          nofile:
-              #            soft: 65536
-              #            hard: 65536
-              #        restart: always
-              #        ports:
-              #         - "9200:9200"
+        container_name: elasticsearch
+        environment:
+          - xpack.security.enabled=false
+          - xpack.monitoring.enabled=false
+          - xpack.ml.enabled=false
+          - xpack.graph.enabled=false
+          - xpack.watcher.enabled=false
+          - cluster.name=docker-cluster
+          - bootstrap.memory_lock=true
+          - ES_JAVA_OPTS=-Xms512m -Xmx512m
+          - discovery.zen.minimum_master_nodes=1
+          - discovery.type=single-node
+        ulimits:
+          memlock:
+            soft: -1
+            hard: -1
+          nofile:
+            soft: 65536
+            hard: 65536
+        restart: always
+        ports:
+         - "9200:9200"
+           
+    kibana:
+        image: docker.elastic.co/kibana/kibana:5.6.3
+        container_name: kibana
+        depends_on:
+            - elasticsearch
+        ports:
+            - "5601:5601"
+
+
+
+
