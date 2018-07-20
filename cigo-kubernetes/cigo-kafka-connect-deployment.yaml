@@ -52,7 +52,7 @@ spec:
         - name: CONNECT_LOG4J_LOGGERS
           value: org.reflections=ERROR
         - name: CONNECT_LOG4J_ROOT_LOGLEVEL
-          value: DEBUG 
+          value: INFO 
         - name: CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR
           value: "1"
         - name: CONNECT_OFFSET_STORAGE_TOPIC
