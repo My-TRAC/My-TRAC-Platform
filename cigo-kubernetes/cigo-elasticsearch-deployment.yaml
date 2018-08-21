@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch
+  labels:
+    name: elasticsearch
+spec:
+  ports:
+  - name: "listener"
+    port: 9200
+    targetPort: 9200
+  clusterIP: None
+  selector:
+    app: elasticsearch
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  labels:
+    app: elasticsearch
+  name: elasticsearch
+spec:
+  selector:
+        matchLabels:
+            app: elasticsearch
+  serviceName: elasticsearch
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      containers:
+      - env:
+        - name: ES_JAVA_OPTS
+          value: -Xms512m -Xmx512m
+        - name: bootstrap.memory_lock
+          value: "true"
+        - name: cluster.name
+          value: docker-cluster
+        - name: discovery.type
+          value: single-node
+        - name: discovery.zen.minimum_master_nodes
+          value: "1"
+        - name: xpack.graph.enabled
+          value: "false"
+        - name: xpack.ml.enabled
+          value: "false"
+        - name: xpack.monitoring.enabled
+          value: "false"
+        - name: xpack.security.enabled
+          value: "false"
+        - name: xpack.watcher.enabled
+          value: "false"
+        image: docker.elastic.co/elasticsearch/elasticsearch:5.6.3
+        name: elasticsearch
+        ports:
+        - containerPort: 9200
+        resources: {}
+      restartPolicy: Always
