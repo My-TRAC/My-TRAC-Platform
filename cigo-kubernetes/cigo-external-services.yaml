@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cigo-zookeeper-external
+  labels:
+    app: cigo-zookeeper
+spec:
+  type: "NodePort"
+  ports:
+  - name: "zookeeper-external"
+    protocol: TCP
+    port: 32181
+    nodePort: 30200
+  selector:
+    app: cigo-zookeeper
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cigo-kafka-external-0
+  labels:
+    statefulset.kubernetes.io/pod-name: cigo-kafka-0 
+spec:
+  type: "NodePort"
+  ports:
+  - name: "cigo-kafka-external-0"
+    protocol: TCP
+    targetPort: 29192
+    port: 29192
+    nodePort: 30000
+  selector:
+    statefulset.kubernetes.io/pod-name: cigo-kafka-0 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cigo-kafka-external-1
+  labels:
+    statefulset.kubernetes.io/pod-name: cigo-kafka-1 
+spec:
+  type: "NodePort"
+  ports:
+  - name: "cigo-kafka-external-1"
+    protocol: TCP
+    targetPort: 29192
+    port: 29192
+    nodePort: 30001
+  selector:
+    statefulset.kubernetes.io/pod-name: cigo-kafka-1 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cigo-kafka-external-2
+  labels:
+    statefulset.kubernetes.io/pod-name: cigo-kafka-2 
+spec:
+  type: "NodePort"
+  ports:
+  - name: "cigo-kafka-external-2"
+    protocol: TCP
+    targetPort: 29192
+    port: 29192
+    nodePort: 30002
+  selector:
+    statefulset.kubernetes.io/pod-name: cigo-kafka-2 
