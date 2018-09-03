@@ -16,6 +16,11 @@ sleep 30
 kubectl apply -f cigo-kafka-connect-deployment.yaml
 sleep 30
 
+kubectl apply -f cigo-elasticsearch-deployment.yaml
+sleep 30
+
+kubectl apply -f cigo-kibana-deployment.yaml
+
 kubectl get statefulsets
 kubectl get deployments 
 kubectl get services 
