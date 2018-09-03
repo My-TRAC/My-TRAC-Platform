@@ -21,7 +21,7 @@ metadata:
     app: cigo-kafka-connect
   name: cigo-kafka-connect
 spec:
-  replicas: 1
+  replicas: 3
   strategy:
     type: Recreate
   template:
@@ -32,11 +32,11 @@ spec:
       containers:
       - env:
         - name: KAFKA_REPLICA_COUNT
-          value: "1" 
+          value: "3" 
         - name: KAFKA_LISTENER_PORT
           value: "29092" 
         - name: CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR
-          value: "1"
+          value: "3"
         - name: CONNECT_CONFIG_STORAGE_TOPIC
           value: cigo-config
         - name: CONNECT_GROUP_ID
@@ -54,7 +54,7 @@ spec:
         - name: CONNECT_LOG4J_ROOT_LOGLEVEL
           value: INFO 
         - name: CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR
-          value: "1"
+          value: "3"
         - name: CONNECT_OFFSET_STORAGE_TOPIC
           value: cigo-offsets
         - name: CONNECT_PLUGIN_PATH
@@ -64,7 +64,7 @@ spec:
         - name: CONNECT_REST_PORT
           value: "28083"
         - name: CONNECT_STATUS_STORAGE_REPLICATION_FACTOR
-          value: "1"
+          value: "3"
         - name: CONNECT_STATUS_STORAGE_TOPIC
           value: cigo-status
         - name: CONNECT_VALUE_CONVERTER

@@ -6,7 +6,7 @@ metadata:
     app: cigo-kafka
 spec:
   ports:
-  - name: "listener"
+  - name: "internal"
     port: 29092
     targetPort: 29092
   clusterIP: None
@@ -24,7 +24,7 @@ spec:
     matchLabels:
       app: cigo-kafka 
   serviceName: cigo-kafka
-  replicas: 1
+  replicas: 3
   template:
     metadata:
       labels:
@@ -33,16 +33,19 @@ spec:
       containers:
       - env:
         - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
-          value: "1"
+          value: "3"
         - name: KAFKA_LISTERNER_PORT
           value: "29092"
+        - name: KAFKA_EXTERNAL_LISTERNER_PORT
+          value: "29192"
         - name: ZOOKEEPER_REPLICA_COUNT
-          value: "1"
+          value: "3"
         - name: ZOOKEEPER_PORT
           value: "32181"
         image: sparsitytechnologies/cigo-kafka:latest
         name: kafka
         ports:
         - containerPort: 29092
+        - containerPort: 29192
         resources: {}
       restartPolicy: Always

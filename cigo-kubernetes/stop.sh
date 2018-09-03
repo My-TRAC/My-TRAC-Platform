@@ -1,8 +1,13 @@
 #/bin/bash
 
+#Deletes Kibana
+kubectl delete -f cigo-kibana-deployment.yaml 
+
+#Deletes ElasticSearch
+kubectl delete -f cigo-elasticsearch-deployment.yaml 
+
 ##Deletes Kafka Connect 
 kubectl delete -f cigo-kafka-connect-deployment.yaml
-
 
 ##Deletes Schema Registry 
 kubectl delete -f cigo-schema-registry-deployment.yaml
@@ -13,8 +18,4 @@ kubectl delete -f cigo-kafka-deployment.yaml
 #Deletes Zookeeper
 kubectl delete -f cigo-zookeeper-deployment.yaml 
 
-kubectl get statefulsets
-kubectl get deployments 
-kubectl get services 
-kubectl get pods
-
+kubectl get all
