@@ -2,6 +2,9 @@ FROM java:8-jre
 
 #COPY scripts  /usr/bin
 
+RUN apt-get update && \
+    apt-get install -y mysql-client
+
 
 COPY  RatingModeler-1.0-SNAPSHOT-jar-with-dependencies.jar /opt/RatingModeler/RatingModeler-1.0-SNAPSHOT-jar-with-dependencies.jar
 COPY run.sh /opt/RatingModeler/run.sh

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 /opt/RatingModeler/scripts/waitForKafkaConenct.sh
+/opt/RatingModeler/scripts/waitForMySQL.sh
 /opt/RatingModeler/scripts/setJDBCConnector.sh
 /opt/RatingModeler/scripts/setJDBCSinkConnector.sh
 /opt/RatingModeler/scripts/setElasticSearchConnector.sh
