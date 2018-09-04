@@ -1,7 +1,9 @@
 FROM java:8-jre
 
-COPY scripts  /usr/bin
+#COPY scripts  /usr/bin
 
+RUN apt-get update && \
+    apt-get install -y mysql-client
 
 COPY GTFSLoader-1.0-SNAPSHOT-jar-with-dependencies.jar /opt/GTFSLoader/GTFSLoader-1.0-SNAPSHOT-jar-with-dependencies.jar
 COPY run.sh /opt/GTFSLoader/run.sh
