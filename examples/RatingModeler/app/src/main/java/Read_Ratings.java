@@ -114,14 +114,9 @@ public class Read_Ratings {
                     activity_ratings.put(user_id,user_ratings);
                     resume.put(activity_id,activity_ratings);
 
-
-
-                    write_statistics(timestamp,resume);
-
-
-
                     System.out.println("user_id: " + user_id + ", activity_id: " + activity_id + ", rating: " + rating);
                 }
+                write_statistics(timestamp,resume);
                 System.out.println();
                 rs.close();
                 stmt.close();
