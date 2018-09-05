@@ -24,4 +24,7 @@ sleep 5
 kubectl apply -f cigo-kibana-deployment.yaml
 sleep 5
 
+#Run init script
+kubectl apply -f cigo-init.yaml
+
 kubectl get all

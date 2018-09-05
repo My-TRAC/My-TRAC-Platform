@@ -1,5 +1,8 @@
 #/bin/bash
 
+#delete initializing job containers
+kubectl delete -f cigo-init.yaml
+
 #Deletes Kibana
 kubectl delete -f cigo-kibana-deployment.yaml 
 
