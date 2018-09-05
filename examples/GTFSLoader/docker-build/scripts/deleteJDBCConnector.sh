@@ -5,7 +5,7 @@ export URL="$KAFKA_CONNECT_HOST:28083"
 export MYSQL="$MYSQL_HOST"
 
 echo ""
-echo "Adding connector to $URL/connectors"
+echo "Delete connector to $URL/connectors"
 
 echo ""
 echo ""
