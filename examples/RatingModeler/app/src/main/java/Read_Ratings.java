@@ -64,7 +64,6 @@ public class Read_Ratings {
                         "pw: "+pw+"\n"
         );
 
-        String query = "SELECT * FROM ratings";
         while(connection == null) {
             try{
                 connection = SQLConnection.getConnection(ip,database,user,pw);
@@ -89,6 +88,21 @@ public class Read_Ratings {
             e.printStackTrace();
         }
 
+        DatabaseMetaData dbm = null;
+        try {
+            dbm = connection.getMetaData();
+            ResultSet rs = dbm.getTables(null,null,"ratings",null);
+            while (!rs.next())
+            {
+                //sleep(60000);
+
+                rs = dbm.getTables(null,null,"ratings",null);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String query = "SELECT * FROM ratings";
         while(true)
         {
             sleep(60000);

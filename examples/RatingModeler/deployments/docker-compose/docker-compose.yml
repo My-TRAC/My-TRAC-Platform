@@ -8,22 +8,15 @@ services:
             MYSQL_USER: confluent
             MYSQL_PASSWORD: confluent
             MYSQL_DATABASE: connect_test
-            #        depends_on:
-            #- kafka-connect
-            #volumes:
-            #- mysql_ratingmodeler:/var/lib/mysql
-            #ports:
-            #- 3307:3306
     ratingmodeler:
         image: sparsitytechnologies/ratingmodeler:latest
         #image: ratingmodeler:latest
         container_name: ratingmodeler
         depends_on:
             - mysql_ratingmodeler
-              #        ports:
-              #            - "4567:4567"
         environment:
             KAFKA_CONNECT_HOST: kafka-connect
+            SCHEMA_REGISTRY_HOST_NAME: schema-registry
             MYSQL_HOST: mysql_ratingmodeler
             MYSQL_PASSWORD: confluent
             ELASTIC_TOPICS: "cigo-jdbc-activities_summary"

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+/opt/RatingModeler/scripts/waitForSchemaRegistry.sh
 /opt/RatingModeler/scripts/waitForKafkaConenct.sh
 /opt/RatingModeler/scripts/waitForMySQL.sh
 /opt/RatingModeler/scripts/setJDBCConnector.sh
