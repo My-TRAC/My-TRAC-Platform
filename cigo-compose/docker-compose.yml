@@ -99,6 +99,7 @@ services:
         container_name: cigo-init
         environment:
           DATA_MODEL_REPOSITORY: https://github.com/My-TRAC/data-model 
-          SCHEMA_REGISTRY_HOST_NAME: schema-registry:8081
+          SCHEMA_REGISTRY_HOST_NAME: schema-registry
+          SCHEMA_REGISTRY_PORT: 8081
         depends_on:
             - schema-registry
