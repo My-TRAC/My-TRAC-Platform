@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/GTFSLoader.iml" filepath="$PROJECT_DIR$/GTFSLoader.iml" />
-      <module fileurl="file://$PROJECT_DIR$/RatingModeler.iml" filepath="$PROJECT_DIR$/RatingModeler.iml" />
-    </modules>
-  </component>
-</project>
