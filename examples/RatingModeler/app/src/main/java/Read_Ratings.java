@@ -82,6 +82,8 @@ public class Read_Ratings {
             create_table = SQLQueryBuilder.createTable();
             Statement statement = connection.createStatement();
             statement.executeUpdate(create_table);
+            System.out.println(create_table);
+            System.out.println("done");
         }
         catch (SQLException e) {
             System.out.println("SQL QUERY: " + create_table);
@@ -94,7 +96,8 @@ public class Read_Ratings {
             ResultSet rs = dbm.getTables(null,null,"ratings",null);
             while (!rs.next())
             {
-                //sleep(60000);
+                sleep(30000);
+                System.out.println("Table ratings does not exist");
 
                 rs = dbm.getTables(null,null,"ratings",null);
             }
