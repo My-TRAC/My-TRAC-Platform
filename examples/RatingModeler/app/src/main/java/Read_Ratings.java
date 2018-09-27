@@ -108,7 +108,7 @@ public class Read_Ratings {
         String query = "SELECT * FROM ratings";
         while(true)
         {
-            sleep(60000);
+            sleep(4000);
             try{
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(query);
@@ -131,7 +131,7 @@ public class Read_Ratings {
                     activity_ratings.put(user_id,user_ratings);
                     resume.put(activity_id,activity_ratings);
 
-                    System.out.println("user_id: " + user_id + ", activity_id: " + activity_id + ", rating: " + rating);
+               //     System.out.println("user_id: " + user_id + ", activity_id: " + activity_id + ", rating: " + rating);
                 }
                 write_statistics(timestamp,resume);
                 System.out.println();
@@ -150,23 +150,23 @@ public class Read_Ratings {
 
     }
 
+    static String lastInsert = "";
     private static void write_statistics(Timestamp timestamp, Map<Integer, Map<Integer, List<Double>>> resume) {
         int num_rated_activities = resume.size();
         Pair<Integer,Double> bestActivity = calculateBestActivity(resume);
 
 
         String insert = SQLQueryBuilder.insert(num_rated_activities,bestActivity);
-
-        try {
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(insert);
+        if(!insert.equals(lastInsert)) {
+            try {
+                Statement statement = connection.createStatement();
+                statement.executeUpdate(insert);
+                lastInsert=insert;
+            } catch (SQLException e) {
+                System.out.println("SQL QUERY: " + insert);
+                e.printStackTrace();
+            }
         }
-        catch (SQLException e)
-        {
-            System.out.println("SQL QUERY: "+ insert);
-            e.printStackTrace();
-        }
-
 
     }
 

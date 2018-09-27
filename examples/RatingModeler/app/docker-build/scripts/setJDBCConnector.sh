@@ -16,7 +16,7 @@ echo ""
 
 curl -X POST \
   -H "Content-Type: application/json" \
-  --data "{ \"name\": \"cigo-jdbc-source_RatingModeler\", \"config\": { \"connector.class\": \"io.confluent.connect.jdbc.JdbcSourceConnector\", \"tasks.max\": 1,\"connection.url\": \"jdbc:mysql://$MYSQL_HOST:3306/connect_test?user=root&password=confluent\", \"mode\": \"incrementing\", \"incrementing.column.name\": \"id\", \"timestamp.column.name\": \"modified\", \"topic.prefix\": \"cigo-jdbc-\", \"poll.interval.ms\": 1000 } }" \
+  --data "{ \"name\": \"cigo-jdbc-source_RatingModeler\", \"config\": { \"connector.class\": \"io.confluent.connect.jdbc.JdbcSourceConnector\", \"tasks.max\": 1,\"connection.url\": \"jdbc:mysql://$MYSQL_HOST:3306/connect_test?user=root&password=confluent\", \"mode\": \"incrementing\", \"incrementing.column.name\": \"id\", \"timestamp.column.name\": \"modified\", \"topic.prefix\": \"cigo-jdbc-\", \"poll.interval.ms\": 1000,\"table.blacklist\":\"ratings\" } }" \
   $URL/connectors
 
   echo ""
