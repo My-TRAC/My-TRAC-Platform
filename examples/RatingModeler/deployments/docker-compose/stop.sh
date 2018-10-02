@@ -1,6 +1,10 @@
 #!/bin/bash
 
-eval $(docker-machine env cigo)                                                                                                       
+if [[ $OSTYPE == "darwin" ]]
+then
+  eval $(docker-machine env cigo) 
+fi
+
 docker-compose stop
 docker-compose rm
 
