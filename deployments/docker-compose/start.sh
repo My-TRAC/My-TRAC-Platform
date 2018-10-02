@@ -11,8 +11,10 @@ then
   eval $(docker-machine env cigo)
 fi
 
+# Staring cigo-compose_default network
+docker network create cigo-compose_default
+
 #STARTS CIGO!-CORE
-#docker network create cigo-compose_default
 echo "Starting Cigo-Core"
 cd ../../CIGO-Core/deployments/docker-compose/
 ./start.sh
