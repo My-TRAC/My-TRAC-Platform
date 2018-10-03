@@ -16,3 +16,5 @@ if [[ "$OSTYPE" == "darwin" ]]
 then
   docker-machine rm cigo
 fi
+
+docker network rm cigo-compose_default
