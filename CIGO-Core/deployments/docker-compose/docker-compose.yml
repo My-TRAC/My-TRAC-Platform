@@ -103,3 +103,7 @@ services:
           SCHEMA_REGISTRY_PORT: 8081
         depends_on:
             - schema-registry
+networks:
+    default:
+        external:
+            name: cigo-compose_default
