@@ -12,7 +12,7 @@ cd $CURRENT_PATH
 cd ../../examples/RatingModeler/deployments/docker-compose/
 ./stop.sh
 
-if [[ "$OSTYPE" == "darwin" ]]
+if [[ "$OSTYPE" == *"darwin"* ]]
 then
   docker-machine rm cigo
 fi

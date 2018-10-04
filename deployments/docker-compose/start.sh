@@ -2,12 +2,11 @@
 
 CURRENT_PATH=`pwd`
 
-if [[ "$OSTYPE" == "darwin" ]]
+if [[ "$OSTYPE" == *"darwin"* ]]
 then
   echo "Creating virtual machine...." 
   scripts/createVirtualMachine.sh
 
-  echo "Deploying cigo..."
   eval $(docker-machine env cigo)
 fi
 
@@ -27,7 +26,7 @@ echo "Starting Rating Modeler"
 cd ../../examples/RatingModeler/deployments/docker-compose/
 ./start.sh
 
-if [[ "$OSTYPE" == "darwin" ]]
+if [[ "$OSTYPE" == *"darwin"* ]]
 then
   echo "Summary" 
   docker-machine env cigo
