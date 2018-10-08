@@ -8,7 +8,5 @@ else
   export CONNECT_HOST="localhost"
 fi
 
-curl -X DELETE $CONNECT_HOST:28083/connectors/cigo-jdbc-source
-
 docker-compose stop
 
