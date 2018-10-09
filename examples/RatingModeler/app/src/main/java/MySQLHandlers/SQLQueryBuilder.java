@@ -9,9 +9,9 @@ public class SQLQueryBuilder {
 
     public static String createTable()
     {
-        StringBuilder sb = new StringBuilder("CREATE TABLE IF NOT EXISTS activities_summary (");
+        StringBuilder sb = new StringBuilder("CREATE TABLE IF NOT EXISTS ActivitiesSummary (");
         sb.append("id serial NOT NULL PRIMARY KEY,\n");
-        sb.append("modified timestamp default CURRENT_TIMESTAMP NOT NULL,");
+      //  sb.append("modified timestamp default CURRENT_TIMESTAMP NOT NULL,");
         sb.append(" num_rated_activities INTEGER,");
         sb.append(" best_rated_activity INTEGER,");
         sb.append(" best_rating DOUBLE)");
@@ -42,7 +42,7 @@ public class SQLQueryBuilder {
     }
 
     public static String insert( int num_rated_activities, Pair<Integer, Double> bestActivity) {
-        StringBuilder sb = new StringBuilder("INSERT INTO activities_summary (num_rated_activities,best_rated_activity,best_rating) VALUES ("+num_rated_activities+","+bestActivity.getKey()+","+bestActivity.getValue()+")");
+        StringBuilder sb = new StringBuilder("INSERT INTO ActivitiesSummary (num_rated_activities,best_rated_activity,best_rating) VALUES ("+num_rated_activities+","+bestActivity.getKey()+","+bestActivity.getValue()+")");
         return sb.toString();
 
     }
