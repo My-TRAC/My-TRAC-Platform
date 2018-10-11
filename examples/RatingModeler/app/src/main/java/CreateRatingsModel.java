@@ -1,6 +1,7 @@
 import Models.ActivityStatistic;
 import MySQLHandlers.MySQLDriver;
 import MySQLHandlers.SQLConnection;
+import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -31,6 +32,9 @@ public class CreateRatingsModel {
         @Parameter(names = {"-pw", "--password"}, description = "DB password", required = false)
         public String pw = "confluent";
 
+        @Parameter(names ={"-l","--loadCSV"}, description = "Load mode [MySQL/CSV File",required = false)
+        public boolean csvLoad=false;
+
         @Parameter(names = "--help,-help", help = true)
         private boolean help;
     }
@@ -42,6 +46,9 @@ public class CreateRatingsModel {
     private static final String resultTableName= "ActivitiesSummary";
 
     public static void main (String[] args) throws IOException, InterruptedException {
+        //Handle the program arguments
+        JCommander.newBuilder().addObject(arguments).build().parse(args);
+
 
         waitForRatings();
         modelRatings();
@@ -82,12 +89,9 @@ public class CreateRatingsModel {
 
         while(true)
         {
-
             Map<Integer, Map<Integer,List<Double>>> resume  = readRatings();
             ActivityStatistic activityStatistic= calculateStatistics(resume);
             writeStatistics(activityStatistic);
-
-
 
             sleep(4000);
         }
@@ -103,10 +107,15 @@ public class CreateRatingsModel {
 
         try {
 
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+            ResultSet rs=null;
+            Statement stmt = null;
+            stmt = connection.createStatement();
+            rs = stmt.executeQuery(query);
+
 
             while (rs.next()) {
+
+
 
                 //Each record in table ratings has a user_id, activity_id and rating.
                 int user_id = rs.getInt("user_id");
