@@ -32,7 +32,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Read_Ratings</mainClass>
+                            <mainClass>CreateRatingsModel</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
