@@ -17,8 +17,8 @@ import static java.lang.Thread.sleep;
 
 public class Read_Ratings {
 
+    //THIS PART OF THE CODE HELPS HANDLING THE ARGUMENTS REQUIRED BY THE APPLICATION
     public static class Arguments {
-
         @Parameter(names = {"-db", "--database"}, description = "Database name", required = true)
         public String database;
 
@@ -28,52 +28,21 @@ public class Read_Ratings {
         @Parameter(names = {"-u", "--user","--username"}, description = "DB username", required = false)
         public String user = "confluent";
 
-
         @Parameter(names = {"-pw", "--password"}, description = "DB password", required = false)
         public String pw = "confluent";
 
-
-
-
         @Parameter(names = "--help,-help", help = true)
         private boolean help;
-
     }
 
 
     static    Connection connection = null;
+
+    static Arguments arguments = new Arguments();
     public static void main (String[] args) throws IOException, InterruptedException {
 
 
-
-
-        Arguments arguments = new Arguments();
-
-
-        JCommander.newBuilder().addObject(arguments).build().parse(args);
-        String ip= arguments.ip;
-        String database = arguments.database;
-        String user = arguments.user;
-        String pw = arguments.pw;
-
-
-        System.out.println(
-                "ip: "+ip+"\n"+
-                        "database: "+database+"\n"+
-                        "user: "+user+"\n"+
-                        "pw: "+pw+"\n"
-        );
-
-        while(connection == null) {
-            try{
-                connection = SQLConnection.getConnection(ip,database,user,pw);
-            } catch(Exception e) {
-                e.printStackTrace();
-                sleep(1000);
-            }
-        }
-        System.out.println("Connection to MYSQL established");
-
+        waitForRatings();
 
 
         String create_table="";
@@ -90,20 +59,7 @@ public class Read_Ratings {
             e.printStackTrace();
         }
 
-        DatabaseMetaData dbm = null;
-        try {
-            dbm = connection.getMetaData();
-            ResultSet rs = dbm.getTables(null,null,"ratings",null);
-            while (!rs.next())
-            {
-                sleep(30000);
-                System.out.println("Table ratings does not exist");
 
-                rs = dbm.getTables(null,null,"ratings",null);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         String query = "SELECT * FROM ratings";
         while(true)
@@ -147,6 +103,31 @@ public class Read_Ratings {
         }
 
 
+
+    }
+
+    //This function will block the app until i) it can connect with the databse and ii) it finds the ratings table.
+    private static void waitForRatings() throws InterruptedException {
+        //Connect with the database
+        connection = SQLConnection.getConnection(arguments.ip,arguments.database,arguments.user,arguments.pw);
+        System.out.println("Connection to MYSQL established");
+
+
+        //Wait for ratings to come. It keeps checking wheter ratings table exists until it finds it.
+        DatabaseMetaData dbm = null;
+        try {
+            dbm = connection.getMetaData();
+            ResultSet rs = dbm.getTables(null,null,"ratings",null);
+            while (!rs.next())
+            {
+                sleep(30000);
+                System.out.println("Table ratings does not exist");
+
+                rs = dbm.getTables(null,null,"ratings",null);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
