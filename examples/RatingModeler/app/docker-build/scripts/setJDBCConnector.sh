@@ -21,7 +21,7 @@ CONNECTOR="{
 \"mode\": \"incrementing\", 
 \"incrementing.column.name\": \"id\", 
 \"timestamp.column.name\": \"modified\", 
-\"topic.prefix\": \"cigo-jdbc-\", 
+\"topic.prefix\": \"CigoJdbc\", 
 \"poll.interval.ms\": 1000,
 \"table.blacklist\":\"ratings\" } 
 }"
