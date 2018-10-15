@@ -10,7 +10,8 @@ public class SQLQueryBuilder {
 
     public static String createTable(String tableName)
     {
-        StringBuilder sb = new StringBuilder("CREATE TABLE IF NOT EXISTS"+ tableName + "(");
+
+        StringBuilder sb = new StringBuilder("CREATE TABLE IF NOT EXISTS "+ tableName + " (");
         sb.append("id serial NOT NULL PRIMARY KEY,\n");
       //  sb.append("modified timestamp default CURRENT_TIMESTAMP NOT NULL,");
         sb.append(" num_rated_activities INTEGER,");

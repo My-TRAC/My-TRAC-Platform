@@ -8,9 +8,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class LoadFile {
+public class FileDriver {
 
-    public static List<String[]> load(String file) throws IOException
+    public static List<String[]> read(String file) throws IOException
+
     {
         Reader reader = Files.newBufferedReader(Paths.get(file));
         CSVReader csvReader = new CSVReader(reader);
