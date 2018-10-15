@@ -64,6 +64,8 @@ public class CreateRatingsModel {
         }
         Map<Integer, Map<Integer,List<Double>>> ratings = getRatings();
         modelRatings(ratings);
+
+        System.out.println("Statistics calculated!");
     }
 
     //Read the CSV file and load into "ratings" table.
