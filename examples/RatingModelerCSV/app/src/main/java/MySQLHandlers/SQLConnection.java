@@ -28,8 +28,6 @@ public class SQLConnection {
 
             } catch (SQLException e) {
                 System.out.println("Connection Failed! Check output console");
-                System.out.println("IP: "+ip+", database: "+database+", user: "+user+", pw: "+pw);
-
                 e.printStackTrace();
                 Thread.sleep(1000);
             }
