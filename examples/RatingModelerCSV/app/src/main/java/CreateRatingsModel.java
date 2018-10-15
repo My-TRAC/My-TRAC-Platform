@@ -66,6 +66,7 @@ public class CreateRatingsModel {
         modelRatings(ratings);
 
         System.out.println("Statistics calculated!");
+        while(true){}
     }
 
     //Read the CSV file and load into "ratings" table.
