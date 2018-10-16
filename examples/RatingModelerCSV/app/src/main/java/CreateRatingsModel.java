@@ -16,7 +16,6 @@ import java.util.Map;
 
 import static java.lang.Thread.sleep;
 
-
 public class CreateRatingsModel {
 
     //THIS PART OF THE CODE HELPS HANDLING THE ARGUMENTS REQUIRED BY THE APPLICATION
@@ -46,6 +45,7 @@ public class CreateRatingsModel {
     }
 
 
+    private static long infinit = Long.MAX_VALUE;
     static Connection connection = null;
     static ActivityStatistic lastActivityStatistic = null;
     static Arguments arguments = new Arguments();
@@ -63,10 +63,11 @@ public class CreateRatingsModel {
 
         }
         Map<Integer, Map<Integer,List<Double>>> ratings = getRatings();
-        modelRatings(ratings);
+        ActivityStatistic activityStatistic= calculateStatistics(ratings);
+        printStatistics(activityStatistic);
 
         System.out.println("Statistics calculated!");
-        while(true){}
+        while(true){sleep(infinit);}
     }
 
     //Read the CSV file and load into "ratings" table.
@@ -106,31 +107,24 @@ public class CreateRatingsModel {
     private static Map<Integer, Map<Integer, List<Double>>> readRatingsMysql() {
         //This is the query that we will execute
         String query = "SELECT * FROM ratings";
-        Map<Integer, Map<Integer,List<Double>>> resume = new HashMap<>();
+        Map<Integer, Map<Integer,List<Double>>> result = new HashMap<>();
 
         try {
-            ResultSet rs=null;
+            ResultSet ratings=null;
             Statement stmt = null;
             stmt = connection.createStatement();
-            rs = stmt.executeQuery(query);
+            ratings = stmt.executeQuery(query);
 
-            while (rs.next()) {
+            while (ratings.next()) {
                 //Each record in table ratings has a user_id, activity_id and rating.
-                int user_id = rs.getInt("user_id");
-                int activity_id = rs.getInt("activity_id");
-                double rating = rs.getDouble("rating");
+                int user_id = ratings.getInt("user_id");
+                int activity_id = ratings.getInt("activity_id");
+                double rating = ratings.getDouble("rating");
 
+                updateRatings(result,user_id,activity_id,rating);
 
-                //Update the resume with the new record
-                Map<Integer, List<Double>> activity_ratings = resume.get(activity_id);
-                if(activity_ratings==null) activity_ratings = new HashMap<>();
-                List<Double> user_ratings = activity_ratings.get(user_id);
-                if (user_ratings==null) user_ratings = new ArrayList<>();
-                user_ratings.add(rating);
-                activity_ratings.put(user_id,user_ratings);
-                resume.put(activity_id,activity_ratings);
             }
-            rs.close();
+            ratings.close();
             stmt.close();
 
         }
@@ -138,27 +132,27 @@ public class CreateRatingsModel {
         {
             System.out.println("Error processing "+query);
         }
-        return resume;
+        return result;
     }
 
     //This function reads the CSV file and creates the resume. This function could be easily improved to read
     //only the last records that have not ben previously processed.
     private static Map<Integer, Map<Integer, List<Double>>> readRatingsCSV() {
-        Map<Integer, Map<Integer,List<Double>>> resume = new HashMap<>();
+        Map<Integer, Map<Integer,List<Double>>> result = new HashMap<>();
         try {
-            List<String[]> records = FileDriver.read(arguments.CSVFilePath);
+            List<String[]> ratings = FileDriver.read(arguments.CSVFilePath);
             boolean first = true;
-            for(String[] record : records)
+            for(String[] rating_row : ratings)
             {
                 try {
-                    int user_id = Integer.parseInt(record[0]);
-                    int activity_id = Integer.parseInt(record[1]);
-                    double rating = Double.parseDouble(record[2]);
+                    int user_id = Integer.parseInt(rating_row[0]);
+                    int activity_id = Integer.parseInt(rating_row[1]);
+                    double rating = Double.parseDouble(rating_row[2]);
 
-                    updateResume(resume, user_id, activity_id, rating);
+                    updateRatings(result, user_id, activity_id, rating);
                 }
                 catch (Exception e){
-                    System.out.println("Error in: <"+ record[0]+", "+record[1]+", "+record[2]+">");
+                    System.out.println("Error in: <"+ rating_row[0]+", "+rating_row[1]+", "+rating_row[2]+">");
                 }
             }
         }
@@ -166,10 +160,10 @@ public class CreateRatingsModel {
         {
             System.out.println("File "+arguments.CSVFilePath+" may not exist.");
         }
-        return resume;
+        return result;
     }
 
-    private static void updateResume(Map<Integer, Map<Integer, List<Double>>> resume, int user_id, int activity_id, double rating) {
+    private static void updateRatings(Map<Integer, Map<Integer, List<Double>>> resume, int user_id, int activity_id, double rating) {
         //Update the resume with the new record
         Map<Integer, List<Double>> activity_ratings = resume.get(activity_id);
         if(activity_ratings==null) activity_ratings = new HashMap<>();
