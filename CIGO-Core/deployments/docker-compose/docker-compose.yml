@@ -2,14 +2,12 @@ version: '3'
 services:
     zookeeper:
         image: sparsitytechnologies/cigo-zookeeper:latest
-        #network_mode: "host"
         container_name: zookeeper
         environment:
             ZOOKEEPER_CLIENT_PORT: 32181
             ZOOKEEPER_TICK_TIME: 2000
     kafka:
         image: sparsitytechnologies/cigo-kafka:latest
-        #network_mode: "host"
         container_name: kafka
         environment:
             KAFKA_ZOOKEEPER_CONNECT: zookeeper:32181
@@ -20,7 +18,6 @@ services:
 
     schema-registry:
         image: sparsitytechnologies/cigo-schema-registry:latest
-        #network_mode: "host"
         container_name:  schema-registry
         ports:
             - "8081:8081"
@@ -61,39 +58,38 @@ services:
             - kafka
             - schema-registry
             
-              #    elasticsearch:
-              #        image: docker.elastic.co/elasticsearch/elasticsearch:5.6.3
-              #              #        network_mode: "host"
-              #        container_name: elasticsearch
-              #        environment:
-              #          - xpack.security.enabled=false
-              #          - xpack.monitoring.enabled=false
-              #          - xpack.ml.enabled=false
-              #          - xpack.graph.enabled=false
-              #          - xpack.watcher.enabled=false
-              #          - cluster.name=docker-cluster
-              #          - bootstrap.memory_lock=true
-              #          - ES_JAVA_OPTS=-Xms512m -Xmx512m
-              #          - discovery.zen.minimum_master_nodes=1
-              #          - discovery.type=single-node
-              #        ulimits:
-              #          memlock:
-              #            soft: -1
-              #            hard: -1
-              #          nofile:
-              #            soft: 65536
-              #            hard: 65536
-              #        restart: always
-              #        ports:
-              #         - "9200:9200"
-              #           
-              #    kibana:
-              #        image: docker.elastic.co/kibana/kibana:5.6.3
-              #        container_name: kibana
-              #        depends_on:
-              #            - elasticsearch
-              #        ports:
-              #            - "5601:5601"
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:5.6.3
+        container_name: elasticsearch
+        environment:
+          - xpack.security.enabled=false
+          - xpack.monitoring.enabled=false
+          - xpack.ml.enabled=false
+          - xpack.graph.enabled=false
+          - xpack.watcher.enabled=false
+          - cluster.name=docker-cluster
+          - bootstrap.memory_lock=true
+          - ES_JAVA_OPTS=-Xms512m -Xmx512m
+          - discovery.zen.minimum_master_nodes=1
+          - discovery.type=single-node
+        ulimits:
+          memlock:
+            soft: -1
+            hard: -1
+          nofile:
+            soft: 65536
+            hard: 65536
+        restart: always
+        ports:
+         - "9200:9200"
+           
+    kibana:
+        image: docker.elastic.co/kibana/kibana:5.6.3
+        container_name: kibana
+        depends_on:
+            - elasticsearch
+        ports:
+            - "5601:5601"
     cigo-init:
         image: sparsitytechnologies/cigo-init:latest
         container_name: cigo-init
