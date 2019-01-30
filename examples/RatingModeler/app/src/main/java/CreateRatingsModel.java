@@ -37,6 +37,8 @@ public class CreateRatingsModel {
 
         @Parameter(names = "--help,-help", help = true)
         private boolean help;
+
+
     }
 
 
@@ -85,6 +87,7 @@ public class CreateRatingsModel {
 
        //Prepare the module to store results by creating a table in the database
         String createdTable = MySQLDriver.createTable(connection,resultTableName);
+        System.out.println(createdTable);
 
 
         while(true)
@@ -156,7 +159,8 @@ public class CreateRatingsModel {
         if (!activityStatistic.equals(lastActivityStatistic))
         {
             String tableAttributes ="(num_rated_activities,best_rated_activity,best_rating)";
-            MySQLDriver.insert(connection,resultTableName, tableAttributes,activityStatistic);
+            String insert = MySQLDriver.insert(connection, resultTableName, tableAttributes, activityStatistic);
+            System.out.println(insert);
             lastActivityStatistic=activityStatistic;
         }
 
