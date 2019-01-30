@@ -4,6 +4,7 @@
 #export URL="kafka-connect-avor:28083"
 export URL="$KAFKA_CONNECT_HOST:28083"
 export MYSQL="$MYSQL_HOST"
+export SR="$SCHEMA_REGISTRY_HOST_NAME:8081"
 
 
 
@@ -21,9 +22,9 @@ CONNECTOR="
 \"topics\":\"$SINK_TOPICS\", 
 \"connection.url\":\"jdbc:mysql://$MYSQL_HOST:3306/connect_test?user=root&password=confluent\", 
 \"key.converter\":\"io.confluent.connect.avro.AvroConverter\", 
-\"key.converter.schema.registry.url\":\"http://schema-registry:8081\", 
+\"key.converter.schema.registry.url\":\"http://$SR\", 
 \"value.converter\":\"io.confluent.connect.avro.AvroConverter\", 
-\"value.converter.schema.registry.url\":\"http://schema-registry:8081\", 
+\"value.converter.schema.registry.url\":\"http://$SR\", 
 \"insert.mode\":\"insert\", 
 \"batch.size\":\"0\", 
 \"auto.create\":\"true\", 

@@ -1,5 +1,7 @@
 #/bin/bash
 
+echo "Deploying CIGO! Core..."
+
 #Deploys Zookeeper
 kubectl apply -f cigo-zookeeper-deployment.yaml
 sleep 5

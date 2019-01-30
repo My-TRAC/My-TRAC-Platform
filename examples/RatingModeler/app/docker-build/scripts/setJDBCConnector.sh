@@ -26,6 +26,8 @@ CONNECTOR="{
 \"table.blacklist\":\"ratings\" } 
 }"
 
+
+
 echo $CONNECTOR | curl -X POST \
   -H "Content-Type: application/json" \
   --data @- \
