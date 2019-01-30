@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql
+  name: mysql-ratingmodeler
   labels:
-    app: mysql
+    app: mysql-ratingmodeler
 spec:
   #type: LoadBalancer 
   ports:
@@ -12,7 +12,7 @@ spec:
     targetPort: 3306 
   clusterIP: None
   selector:
-    app: mysql 
+    app: mysql-ratingmodeler 
 status:
   loadBalancer: {}
 ---
@@ -20,15 +20,15 @@ apiVersion: apps/v1beta1
 kind: StatefulSet
 metadata:
   labels:
-    app: mysql
-  name: mysql
+    app: mysql-ratingmodeler
+  name: mysql-ratingmodeler
 spec:
-  serviceName: mysql
+  serviceName: mysql-ratingmodeler
   replicas: 1
   template:
     metadata:
       labels:
-        app: mysql
+        app: mysql-ratingmodeler
     spec:
       containers:
       - env:
@@ -41,7 +41,7 @@ spec:
         - name: MYSQL_DATABASE
           value: connect_test
         image: mysql:5.5.59
-        name: mysql 
+        name: mysql-ratingmodeler 
         ports:
         - containerPort: 3306
       restartPolicy: Always
