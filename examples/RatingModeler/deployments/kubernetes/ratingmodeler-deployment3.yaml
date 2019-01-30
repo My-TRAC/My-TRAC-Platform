@@ -1,0 +1,57 @@
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: ratingmodeler-ing
+# spec:
+#   rules:
+#   - host: my-trac.eu
+#     http:
+#       paths:
+#       - path: /ratingmodeler
+#         backend:
+#           serviceName: ratingmodeler
+#           servicePort: 4568
+# ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ratingmodeler
+  labels:
+    app: ratingmodeler
+spec:
+  type: NodePort 
+  ports: 
+  - name: "24568" 
+    port: 24568
+  selector:
+    app: ratingmodeler
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  labels:
+    app: ratingmodeler
+  name: ratingmodeler
+spec:
+  serviceName: ratingmodeler
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ratingmodeler
+    spec:
+      containers:
+      - env:
+          - name: MYSQL_HOST
+            value: mysql-ratingmodeler
+          - name: SCHEMA_REGISTRY_HOST_NAME
+            value: cigo-schema-registry
+          - name: KAFKA_CONNECT_HOST
+            value: cigo-kafka-connect
+          - name: SINK_TOPICS
+            value: "ratings"
+        image: sparsitytechnologies/ratingmodeler:latest
+        name: ratingmodeler 
+        #        ports:
+        #        - containerPort: 4568
+      restartPolicy: Always
