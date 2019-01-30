@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+ name: my-nginx-ingress
+spec:
+ rules:
+  - host: my-nginx.192.168.99.100.xip.io
+    http:
+     paths:
+      - path: /
+        backend:
+         serviceName: my-nginx
+         servicePort: 80
+
