@@ -3,14 +3,9 @@ kind: Ingress
 metadata:
   name: kibana-ing
 spec:
-  rules:
-  - host: my-trac.eu
-    http:
-      paths:
-      - path: /kibana
-        backend:
-          serviceName: kibana
-          servicePort: 5601
+  backend:
+    serviceName: kibana
+    servicePort: 5601
 ---          
 apiVersion: v1
 kind: Service

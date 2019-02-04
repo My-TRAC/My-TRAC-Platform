@@ -3,14 +3,9 @@ kind: Ingress
 metadata:
   name: cigo-kafka-connect-ing
 spec:
-  rules:
-  - host: my-trac.eu
-    http:
-      paths:
-      - path: /cigo-kafka-connect
-        backend:
-          serviceName: cigo-kafka-connect 
-          servicePort: 28083
+  backend:
+    serviceName: cigo-kafka-connect 
+    servicePort: 28083
 ---           
 apiVersion: v1
 kind: Service

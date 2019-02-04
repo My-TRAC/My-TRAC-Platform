@@ -42,9 +42,9 @@ spec:
           value: "3"
         - name: ZOOKEEPER_PORT
           value: "32181"
-        - name: KAFKA_EXTERNAL_BROKER_HOST_NAMES
-          value: "eos1.ac.upc.edu eos1.ac.upc.edu eos1.ac.upc.edu"
-        image: sparsitytechnologies/cigo-kafka:dev
+          #- name: KAFKA_EXTERNAL_BROKER_HOST_NAMES
+          #  value: "eos1.ac.upc.edu eos1.ac.upc.edu eos1.ac.upc.edu"
+        image: sparsitytechnologies/cigo-kafka:latest
         name: kafka
         ports:
         - containerPort: 29092
