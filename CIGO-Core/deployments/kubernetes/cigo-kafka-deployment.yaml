@@ -42,6 +42,8 @@ spec:
           value: "3"
         - name: ZOOKEEPER_PORT
           value: "32181"
+        - name: KAFKA_LOG_DIRS
+          value: "/var/lib/kafka/data/topics"
           #- name: KAFKA_EXTERNAL_BROKER_HOST_NAMES
           #  value: "eos1.ac.upc.edu eos1.ac.upc.edu eos1.ac.upc.edu"
         image: sparsitytechnologies/cigo-kafka:latest
@@ -51,4 +53,33 @@ spec:
         - containerPort: 29192
         resources: {}
         imagePullPolicy: Always
+        volumeMounts:
+          - name: config
+            mountPath: /etc/kafka
+          - name: data
+            mountPath: /var/lib/kafka/data
       restartPolicy: Always
+      volumes:
+        - name: config
+          emptyDir: {}
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      storageClassName: "standard" 
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 30Gi
+#---
+#kind: PersistentVolumeClaim
+#apiVersion: v1
+#metadata:
+#  name: kafka-volume-claim
+#spec:
+#  storageClassName: "standard"
+#  accessModes:
+#    - ReadWriteOnce
+#  resources:
+#    requests:
+#      storage: 30Gi
