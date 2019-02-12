@@ -71,15 +71,3 @@ spec:
       resources:
         requests:
           storage: 30Gi
-#---
-#kind: PersistentVolumeClaim
-#apiVersion: v1
-#metadata:
-#  name: kafka-volume-claim
-#spec:
-#  storageClassName: "standard"
-#  accessModes:
-#    - ReadWriteOnce
-#  resources:
-#    requests:
-#      storage: 30Gi
