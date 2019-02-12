@@ -62,8 +62,6 @@ spec:
           value: org.reflections=ERROR
         - name: CONNECT_LOG4J_ROOT_LOGLEVEL
           value: INFO 
-        - name: CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR
-          value: "3"
         - name: CONNECT_OFFSET_STORAGE_TOPIC
           value: cigo-offsets
         - name: CONNECT_PLUGIN_PATH
