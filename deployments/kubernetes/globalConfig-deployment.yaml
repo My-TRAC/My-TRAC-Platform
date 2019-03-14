@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: globalConfig
+  name: global-config
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: globalConfig
+    spec:
+      containers:
+      - env:
+        - name: CONNECT_BOOTSTRAP_SERVERS
+          value: cigo-kafka:29092
+        - name: KAFKA_CONNECT_HOST
+          value: cigo-kafka-connect
+        - name: TOPICS
+          value: "ratings, CigoJdbcActivitiesSummary"
+        image: sparsitytechnologies/globalscript:latest
+        name: global-config
+        resources: {}

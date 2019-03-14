@@ -82,5 +82,13 @@ spec:
         name: cigo-kafka-connect 
         ports:
         - containerPort: 28083
+        volumeMounts:
+            - name: credentials-folder
+              mountPath: /opt/cigo-core/credentials
+              readOnly: true
+      volumes:      
+          - name: credentials-folder
+            secret:
+                secretName: credentials-folder
       restartPolicy: Always
 status: {}

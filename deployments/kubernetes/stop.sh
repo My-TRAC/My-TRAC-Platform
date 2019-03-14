@@ -17,4 +17,9 @@ then
   docker-machine rm cigo
 fi
 
+cd $CURRENT_PATH
+
+#Delete Global Config
+kubectl delete -f globalConfig-deployment.yaml
+
 docker network rm cigo-compose_default

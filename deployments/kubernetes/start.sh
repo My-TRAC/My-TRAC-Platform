@@ -14,3 +14,6 @@ echo "Starting Rating Modeler"
 cd ../../examples/RatingModeler/deployments/kubernetes/
 ./start.sh
 
+
+cd $CURRENT_PATH
+kubectl apply -f globalConfig-deployment.yaml

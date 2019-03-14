@@ -57,7 +57,8 @@ services:
             - zookeeper
             - kafka
             - schema-registry
-            
+        volumes:
+            - ../credentials:/opt/cigo-core/credentials
               #    elasticsearch:
               #        image: docker.elastic.co/elasticsearch/elasticsearch:5.6.3
               #        container_name: elasticsearch

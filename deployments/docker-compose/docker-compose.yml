@@ -1,0 +1,15 @@
+version: '3'
+services:
+    globalConfig:
+        image: sparsitytechnologies/globalscript:latest
+        container_name: global_config
+        environment:
+            CONNECT_BOOTSTRAP_SERVERS: kafka:29092
+            TOPICS: "ratings, CigoJdbcActivitiesSummary"
+            KAFKA_CONNECT_HOST: kafka-connect 
+
+
+networks:
+    default:
+        external:
+            name: cigo-compose_default

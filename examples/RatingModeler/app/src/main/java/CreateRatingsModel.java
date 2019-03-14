@@ -54,6 +54,8 @@ public class CreateRatingsModel {
 
         waitForRatings();
         modelRatings();
+
+        String s = "{ \"name\": \"gcs\", \"config\": { \"connector.class\": \"io.confluent.connect.gcs.GcsSinkConnector\", \"tasks.max\": \"1\", \"topics\": \"gcs_topic\", \"gcs.bucket.name\": \"#bucket-name\", \"gcs.part.size\": \"5242880\", \"flush.size\": \"3\", \"gcs.credentials.path\": \"#/path/to/credentials/keys.json\", \"storage.class\": \"io.confluent.connect.gcs.storage.GcsStorage\", \"format.class\": \"io.confluent.connect.gcs.format.avro.AvroFormat\", \"partitioner.class\": \"io.confluent.connect.storage.partitioner.DefaultPartitioner\", \"schema.compatibility\": \"NONE\", \"confluent.topic.bootstrap.servers\": \"localhost:9092\", \"confluent.topic.replication.factor\": \"1\", \"name\": \"gcs\" }";
     }
 
     //This function will block the app until i) it can connect with the databse and ii) it finds the ratings table.

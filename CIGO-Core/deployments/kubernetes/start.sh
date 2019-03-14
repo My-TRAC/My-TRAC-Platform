@@ -15,7 +15,7 @@ kubectl apply -f cigo-schema-registry-deployment.yaml
 sleep 5
 
 #Deploys Kafka Connect
-kubectl apply -f cigo-kafka-connect-deployment.yaml
+kubectl create secret generic credentials-folder --from-file ../credentials/ | kubectl apply -f cigo-kafka-connect-deployment.yaml
 sleep 5
 
 #Deploys Elasticsearch

@@ -29,5 +29,9 @@ cd ../../examples/RatingModeler/deployments/docker-compose/
 if [[ "$OSTYPE" == *"darwin"* ]]
 then
   echo "Summary" 
-  docker-machine env cigo
+  eval $(docker-machine env cigo)
 fi
+
+cd $CURRENT_PATH
+docker-compose up -d
+
