@@ -16,4 +16,4 @@ cd ../../examples/RatingModeler/deployments/kubernetes/
 
 
 cd $CURRENT_PATH
-kubectl apply -f globalConfig-deployment.yaml
+#kubectl apply -f globalConfig-deployment.yaml

@@ -16,6 +16,14 @@ spec:
           value: "8081"
         - name: DATA_MODEL_REPOSITORY
           value: https://github.com/My-TRAC/data-model 
+        - name: CONFIGURATION_SCRIPTS
+          value: https://github.com/My-TRAC/ConfigurationScripts.git
+        - name: CONNECT_BOOTSTRAP_SERVERS
+          value:  cigo-kafka:29092
+        - name: TOPICS
+          value: "ratings, CigoJdbcActivitiesSummary"
+        - name: KAFKA_CONNECT_HOST
+          value: cigo-kafka-connect
         image: sparsitytechnologies/cigo-init:latest
         name: cigo-init
         resources: {}

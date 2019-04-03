@@ -98,10 +98,15 @@ services:
         container_name: cigo-init
         environment:
             DATA_MODEL_REPOSITORY: https://github.com/My-TRAC/data-model 
+            CONFIGURATION_SCRIPTS: https://github.com/My-TRAC/ConfigurationScripts.git
             SCHEMA_REGISTRY_HOST_NAME: schema-registry
             SCHEMA_REGISTRY_PORT: 8081
+            CONNECT_BOOTSTRAP_SERVERS: kafka:29092
+            TOPICS: "ratings, CigoJdbcActivitiesSummary"
+            KAFKA_CONNECT_HOST: kafka-connect
         depends_on:
             - schema-registry
+            - kafka-connect
 networks:
     default:
         external:
