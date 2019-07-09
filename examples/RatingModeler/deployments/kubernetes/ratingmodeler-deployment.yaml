@@ -50,6 +50,14 @@ spec:
             value: cigo-kafka-connect
           - name: SINK_TOPICS
             value: "ratings"
+          - name: MYSQL_HOST
+            value: mysql_ratingmodeler
+          - name: MYSQL_DATABASE
+            value: connect_test
+          - name: MYSQL_USER
+            value: confluent
+          - name: MYSQL_PASSWORD
+            value: confluent
         image: sparsitytechnologies/ratingmodeler:latest
         imagePullPolicy: Always
         name: ratingmodeler 
