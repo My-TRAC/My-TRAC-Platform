@@ -10,16 +10,18 @@ public class SQLQueryBuilder {
 
     public static String createTable(String tableName)
     {
-        StringBuilder sb = new StringBuilder("CREATE TABLE IF NOT EXISTS "+ tableName + "(");
+        StringBuilder sb = new StringBuilder("SQL$>\n CREATE TABLE IF NOT EXISTS "+ tableName + "(");
         if(!tableName.equals("ratings")) {
-            sb.append("id serial NOT NULL PRIMARY KEY,\n");
+            sb.append(" mytrac_id serial NOT NULL PRIMARY KEY\",\n");
+            sb.append(" mytrac_last_modified timestamp(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),");
             sb.append(" num_rated_activities INTEGER,");
             sb.append(" best_rated_activity INTEGER,");
             sb.append(" best_rating DOUBLE)");
         }
         else
         {
-            sb.append("id serial NOT NULL PRIMARY KEY,\n");
+            sb.append(" mytrac_id serial NOT NULL PRIMARY KEY\",\n");
+            sb.append(" mytrac_last_modified timestamp(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),");
             sb.append("user_id INTEGER,");
             sb.append("activity_id INTEGER,");
             sb.append("rating DOUBLE");
