@@ -78,7 +78,7 @@ spec:
           value: io.confluent.connect.avro.AvroConverter 
         - name: CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL
           value: http://cigo-schema-registry.default.svc.cluster.local:8081
-        image: sparsitytechnologies/cigo-kafka-connect:latest
+        image: sparsitytechnologies/cigo-kafka-connect:0.1
         name: cigo-kafka-connect 
         ports:
         - containerPort: 28083

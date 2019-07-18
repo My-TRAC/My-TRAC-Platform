@@ -39,7 +39,7 @@ spec:
           value: "3"
         - name: SCHEMA_REGISTRY_LISTENERS
           value: http://cigo-schema-registry.default.svc.cluster.local:8081
-        image: sparsitytechnologies/cigo-schema-registry:latest
+        image: sparsitytechnologies/cigo-schema-registry:0.1
         name: schema-registry
         ports:
         - containerPort: 8081

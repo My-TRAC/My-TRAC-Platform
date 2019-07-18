@@ -1,13 +1,13 @@
 version: '3'
 services:
     zookeeper:
-        image: sparsitytechnologies/cigo-zookeeper:latest
+        image: sparsitytechnologies/cigo-zookeeper:0.1
         container_name: zookeeper
         environment:
             ZOOKEEPER_CLIENT_PORT: 32181
             ZOOKEEPER_TICK_TIME: 2000
     kafka:
-        image: sparsitytechnologies/cigo-kafka:latest
+        image: sparsitytechnologies/cigo-kafka:0.1
         container_name: kafka
         environment:
             KAFKA_ZOOKEEPER_CONNECT: zookeeper:32181
@@ -17,7 +17,7 @@ services:
             - zookeeper
 
     schema-registry:
-        image: sparsitytechnologies/cigo-schema-registry:latest
+        image: sparsitytechnologies/cigo-schema-registry:0.1
         container_name:  schema-registry
         ports:
             - "8081:8081"
@@ -29,7 +29,7 @@ services:
             - zookeeper
             - kafka
     kafka-connect:
-        image: sparsitytechnologies/cigo-kafka-connect:latest
+        image: sparsitytechnologies/cigo-kafka-connect:0.1
         container_name: kafka-connect
         ports:
             - "28083:28083"
@@ -94,7 +94,7 @@ services:
                          
 
     cigo-init:
-        image: sparsitytechnologies/cigo-init:latest
+        image: sparsitytechnologies/cigo-init:0.1
         container_name: cigo-init
         environment:
             DATA_MODEL_REPOSITORY: https://github.com/My-TRAC/data-model 

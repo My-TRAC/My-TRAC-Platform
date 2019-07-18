@@ -24,7 +24,7 @@ spec:
           value: "ratings, CigoJdbcActivitiesSummary"
         - name: KAFKA_CONNECT_HOST
           value: cigo-kafka-connect
-        image: sparsitytechnologies/cigo-init:latest
+        image: sparsitytechnologies/cigo-init:0.1
         name: cigo-init
         resources: {}
       restartPolicy: Never

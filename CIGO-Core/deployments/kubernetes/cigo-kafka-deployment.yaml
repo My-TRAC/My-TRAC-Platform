@@ -46,7 +46,7 @@ spec:
           value: "/var/lib/kafka/data/topics"
           #- name: KAFKA_EXTERNAL_BROKER_HOST_NAMES
           #  value: "eos1.ac.upc.edu eos1.ac.upc.edu eos1.ac.upc.edu"
-        image: sparsitytechnologies/cigo-kafka:latest
+        image: sparsitytechnologies/cigo-kafka:0.1
         name: kafka
         ports:
         - containerPort: 29092
