@@ -1,12 +1,12 @@
 apiVersion: batch/v1
 kind: Job 
 metadata:
-  name: cigo-init
+  name: cigo-init2
 spec:
   template:
     metadata:
       labels:
-        name: cigo-init
+        name: cigo-init2
     spec:
       containers:
       - env:
@@ -24,7 +24,7 @@ spec:
           value: "ratings, CigoJdbcActivitiesSummary"
         - name: KAFKA_CONNECT_HOST
           value: cigo-kafka-connect
-        image: sparsitytechnologies/cigo-init:0.1
+        image: sparsitytechnologies/cigo-init:mike
         name: cigo-init
         resources: {}
       restartPolicy: Never
