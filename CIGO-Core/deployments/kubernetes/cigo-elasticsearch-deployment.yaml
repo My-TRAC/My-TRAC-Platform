@@ -32,6 +32,18 @@ spec:
     spec:
       containers:
       - env:
+        - name: DB_HOST
+          value: 127.0.0.1:3306
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: cloudsql-db-credentials
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: cloudsql-db-credentials
+              key: password
         - name: ES_JAVA_OPTS
           value: -Xms512m -Xmx512m
         - name: bootstrap.memory_lock
@@ -57,4 +69,19 @@ spec:
         ports:
         - containerPort: 9200
         resources: {}
+
+      - name: cloudsql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.11
+        command: ["/cloud_sql_proxy",
+                  "-instances=buoyant-episode-216912:europe-west1:mysql-share=tcp:3306",
+                  "-credential_file=/secrets/cloudsql/credentials.json"]
+        volumeMounts:
+          - name: cloudsql-instance-credentials
+            mountPath: /secrets/cloudsql
+            readOnly: true
+
+      volumes:
+          - name: cloudsql-instance-credentials
+            secret:
+              secretName: cloudsql-instance-credentials
       restartPolicy: Always

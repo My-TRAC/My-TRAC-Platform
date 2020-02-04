@@ -39,6 +39,18 @@ spec:
     spec:
       containers:
       - env:
+        - name: DB_HOST
+          value: 127.0.0.1:3306
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: cloudsql-db-credentials
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: cloudsql-db-credentials
+              key: password
         - name: ZOOKEEPER_CLIENT_PORT
           value: "32181"
         - name: ZOOKEEPER_SERVER_PORT
@@ -55,4 +67,19 @@ spec:
         - containerPort: 32181
         - containerPort: 2888
         - containerPort: 3888
+
+      - name: cloudsql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.11
+        command: ["/cloud_sql_proxy",
+                  "-instances=buoyant-episode-216912:europe-west1:mysql-share=tcp:3306",
+                  "-credential_file=/secrets/cloudsql/credentials.json"]
+        volumeMounts:
+          - name: cloudsql-instance-credentials
+            mountPath: /secrets/cloudsql
+            readOnly: true
+
+      volumes:
+          - name: cloudsql-instance-credentials
+            secret:
+              secretName: cloudsql-instance-credentials
       restartPolicy: Always
