@@ -21,7 +21,7 @@ spec:
         - name: CONNECT_BOOTSTRAP_SERVERS
           value:  cigo-kafka:29092
         - name: TOPICS
-          value: "activity,mobility_trace,facility,poi,user,user_chooses_route,user_evaluates_activity,user_joins_group,user_uses_app,user_views_activity,user_reward,route_choice_model_output,route_departure_model_output,poll_questionary,poll_response"
+          value: "activity,mobility_trace,facility,poi,user,user_chooses_route,user_evaluates_activity,user_joins_group,user_uses_app,user_views_activity,user_reward,route_choice_model_output,route_departure_model_output,poll_questionary,poll_response,user_email,user_twitter_account"
         - name: KAFKA_CONNECT_HOST
           value: cigo-kafka-connect
         image: sparsitytechnologies/cigo-init:0.1
